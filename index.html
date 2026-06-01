@@ -1769,7 +1769,18 @@ addEventListener('DOMContentLoaded',()=>{
   // restore the last view on reload (so reloading inside a Work page stays there)
   let saved=null,savedTarget='';
   try{saved=sessionStorage.getItem('pf-view');savedTarget=sessionStorage.getItem('pf-target')||'';}catch(e){}
-  document.querySelectorAll('.stmt-video video').forEach(v=>{const sp=()=>{v.playbackRate=0.6;};sp();v.addEventListener('loadedmetadata',sp);v.addEventListener('play',sp);});
+  document.querySelectorAll('.stmt-video video').forEach(v=>{
+    const sp=()=>{try{v.playbackRate=0.6;}catch(e){}};
+    sp(); v.addEventListener('loadedmetadata',sp); v.addEventListener('play',sp);
+    v.muted=true; // required for mobile autoplay
+    // Mobile browsers skip autoplay for videos hidden at load (the home intro hides this
+    // section). Kick playback off the moment it actually scrolls into view.
+    const kick=()=>{ v.play().then(sp).catch(()=>{}); };
+    if('IntersectionObserver' in window){
+      const vio=new IntersectionObserver((es)=>{es.forEach(e=>{ if(e.isIntersecting){ kick(); } });},{threshold:.2});
+      vio.observe(v);
+    }else{ kick(); }
+  });
 
   if(saved&&views[saved]&&saved!=='home'){
     // jump straight to the saved view; no home-intro hold. Arco still plays its motion once.
