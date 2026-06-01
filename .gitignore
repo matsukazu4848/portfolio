@@ -1,0 +1,8 @@
+# OS
+.DS_Store
+**/.DS_Store
+
+# 受け渡し・作業用（サイト本体には不要）
+_受け渡し/
+COPY.md
+PLAN.md

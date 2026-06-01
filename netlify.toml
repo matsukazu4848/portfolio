@@ -1,0 +1,11 @@
+# Netlify 設定 — 静的サイト（ビルド不要）
+[build]
+  publish = "."
+  command = ""
+
+# 末尾スラッシュなしの綺麗なURL
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
