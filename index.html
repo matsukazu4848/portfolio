@@ -289,6 +289,15 @@ body.intro-hold .hero-scrim,body.intro-hold .scroll-hint,body.intro-hold nav{opa
 body.intro-hold nav{pointer-events:none}
 #view-home>section,#view-home>footer{transition:opacity 1.6s var(--ease)}
 body.intro-hold #view-home>section,body.intro-hold #view-home>footer{opacity:0}
+/* hero loader — shown while the hero video is still buffering */
+.hero-loader{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  background:#0E1117;opacity:0;visibility:hidden;transition:opacity .6s var(--ease),visibility .6s var(--ease)}
+body.hero-loading .hero-loader{opacity:1;visibility:visible}
+body.hero-loading nav{opacity:0;pointer-events:none}
+.hero-loader .ring{width:46px;height:46px;border-radius:50%;border:3px solid rgba(255,255,255,.16);border-top-color:#fff;animation:heroSpin .9s linear infinite}
+.hero-loader .lt{font-family:'Outfit',sans-serif;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+@keyframes heroSpin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.hero-loader .ring{animation-duration:2s}}
 .hero-name-big{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(40px,8.5vw,96px);letter-spacing:-.02em;line-height:1.02;color:var(--navy)}
 .hero-portfolio{margin-top:20px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:.42em;text-transform:uppercase;font-size:14px;color:var(--orange)}
 /* ---- project folders ---- */
@@ -737,6 +746,7 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
     <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg?v=2">
       <source src="assets/hero-bg.mp4?v=3" type="video/mp4">
     </video>
+    <div class="hero-loader" aria-hidden="true"><div class="ring"></div><div class="lt">Loading</div></div>
     <div class="hero-scrim"></div>
     <div class="wrap">
       <h1 class="hero-name-big reveal">Kazuma Matsumura</h1>
@@ -1769,34 +1779,37 @@ addEventListener('DOMContentLoaded',()=>{
   }
 
   runReveal();
-  // intro: hold on the hero video only, then reveal the rest.
-  // Trigger off the video being PLAYABLE (not a fixed timer), so the timing is the same
-  // on fast and slow connections. A short beat lets the motion breathe; a safety cap
-  // and tap-to-skip guarantee we never get stuck waiting on the network.
-  document.body.classList.add('intro-hold');
+  // intro: while the hero video buffers, show a loader. The 7-second hold that reveals
+  // the surrounding UI is counted from the moment the video actually STARTS PLAYING —
+  // so the timing always lines up with the footage, on fast and slow connections alike.
+  document.body.classList.add('intro-hold','hero-loading');
   const heroVid=document.querySelector('.hero-video');
-  const BEAT=1200;     // how long the video plays alone after it's ready
-  const SAFETY=6000;   // hard cap so a stalled/failed load can't trap the user
-  let safetyTimer, beatTimer;
-  const endIntro=()=>{
+  const HOLD=7000;        // reveal the rest 7s after playback begins (synced to the video)
+  const LOAD_CAP=15000;   // if the video never plays, stop loading after this and reveal
+  let holdTimer, loadCap, started=false;
+  const reveal=()=>{
     if(introPlayed)return;
     introPlayed=true;
-    clearTimeout(safetyTimer); clearTimeout(beatTimer);
-    document.body.classList.remove('intro-hold');
+    clearTimeout(holdTimer); clearTimeout(loadCap);
+    document.body.classList.remove('intro-hold','hero-loading');
     document.querySelectorAll('#view-home .hero .reveal').forEach(el=>el.classList.add('in'));
   };
-  // once the video can play, show it alone for BEAT ms, then reveal everything
-  const onReady=()=>{ clearTimeout(beatTimer); beatTimer=setTimeout(endIntro,BEAT); };
+  // playback has begun → drop the loader and start the 7s clock from here
+  const onPlaying=()=>{
+    if(started)return; started=true;
+    clearTimeout(loadCap);
+    document.body.classList.remove('hero-loading');
+    holdTimer=setTimeout(reveal,HOLD);
+  };
   if(heroVid){
-    if(heroVid.readyState>=3){ onReady(); }            // already buffered (cache)
-    else{
-      heroVid.addEventListener('canplay',onReady,{once:true});
-      heroVid.addEventListener('error',endIntro,{once:true}); // video failed → don't hide the page
-    }
-    heroVid.play&&heroVid.play().catch(()=>{});         // nudge autoplay
-  }else{ endIntro(); }
-  safetyTimer=setTimeout(endIntro,SAFETY);              // network too slow → reveal anyway
-  addEventListener('pointerdown',endIntro,{once:true}); // tap to skip
+    heroVid.addEventListener('playing',onPlaying,{once:true});
+    heroVid.addEventListener('error',reveal,{once:true});      // video failed → reveal the page
+    if(!heroVid.paused && heroVid.readyState>=3 && heroVid.currentTime>0) onPlaying(); // already playing (cache)
+    heroVid.play&&heroVid.play().catch(()=>{});                 // nudge autoplay
+    loadCap=setTimeout(reveal,LOAD_CAP);                        // loader can't spin forever
+  }else{ reveal(); }
+  // tap to skip — only after playback has started (don't let a tap during loading skip it)
+  addEventListener('pointerdown',()=>{ if(started) reveal(); });
 });
 </script>
 </body>
