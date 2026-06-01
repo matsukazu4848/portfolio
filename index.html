@@ -1769,18 +1769,34 @@ addEventListener('DOMContentLoaded',()=>{
   }
 
   runReveal();
-  // intro: show only the video for 7s (tap/click to skip), then reveal surrounding elements
+  // intro: hold on the hero video only, then reveal the rest.
+  // Trigger off the video being PLAYABLE (not a fixed timer), so the timing is the same
+  // on fast and slow connections. A short beat lets the motion breathe; a safety cap
+  // and tap-to-skip guarantee we never get stuck waiting on the network.
   document.body.classList.add('intro-hold');
-  let introTimer;
+  const heroVid=document.querySelector('.hero-video');
+  const BEAT=1200;     // how long the video plays alone after it's ready
+  const SAFETY=6000;   // hard cap so a stalled/failed load can't trap the user
+  let safetyTimer, beatTimer;
   const endIntro=()=>{
     if(introPlayed)return;
     introPlayed=true;
-    clearTimeout(introTimer);
+    clearTimeout(safetyTimer); clearTimeout(beatTimer);
     document.body.classList.remove('intro-hold');
     document.querySelectorAll('#view-home .hero .reveal').forEach(el=>el.classList.add('in'));
   };
-  introTimer=setTimeout(endIntro,7000);
-  addEventListener('pointerdown',endIntro,{once:true});
+  // once the video can play, show it alone for BEAT ms, then reveal everything
+  const onReady=()=>{ clearTimeout(beatTimer); beatTimer=setTimeout(endIntro,BEAT); };
+  if(heroVid){
+    if(heroVid.readyState>=3){ onReady(); }            // already buffered (cache)
+    else{
+      heroVid.addEventListener('canplay',onReady,{once:true});
+      heroVid.addEventListener('error',endIntro,{once:true}); // video failed → don't hide the page
+    }
+    heroVid.play&&heroVid.play().catch(()=>{});         // nudge autoplay
+  }else{ endIntro(); }
+  safetyTimer=setTimeout(endIntro,SAFETY);              // network too slow → reveal anyway
+  addEventListener('pointerdown',endIntro,{once:true}); // tap to skip
 });
 </script>
 </body>
