@@ -350,8 +350,10 @@ body.hero-loading nav{opacity:0;pointer-events:none}
   .nav-links{gap:18px}
   .portrait{max-width:200px}
   /* project detail: stop pinning/scrubbing, stack slides full-width vertically */
-  .scrolly{height:auto}
+  .scrolly{height:auto;overflow-x:clip}
   .pin{position:static;height:auto;display:block;overflow:visible}
+  /* glow behind intro must not bleed sideways once the section is in normal flow (caused horizontal scroll on phones) */
+  .sg-intro::before{inset:-26% 0}
   .bg-wrap{position:relative;height:42vh}
   .bg-wrap .bg{filter:none!important;transform:none!important}
   .bg-wrap .scrim{display:none}
