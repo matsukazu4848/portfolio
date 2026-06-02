@@ -662,6 +662,21 @@ body.hero-loading nav{opacity:0;pointer-events:none}
 .arc-hero-stage .arc-badge b{color:var(--a-amber);font-weight:700}
 .arc-hero-stage .bg-top{top:6%;right:2%;max-width:160px}
 .arc-hero-stage .bg-bot{bottom:7%;left:0;max-width:170px}
+/* hover brings a screen forward — in-place pop (straighten, scale, push toward viewer via the stage perspective) */
+.arc-hp{transition:transform .55s var(--ease),filter .45s var(--ease),box-shadow .45s var(--ease)}
+.arc-hp:hover{z-index:6;box-shadow:0 70px 110px -30px rgba(0,0,0,.85),inset 0 0 0 1px rgba(255,255,255,.18)}
+.arc-hp.hp-front:hover{transform:translate(-50%,-56%) rotate(0deg) translateZ(60px) scale(1.06);filter:brightness(1.05)}
+.arc-hp.hp-back-l:hover{transform:translate(-86%,-46%) rotate(-4deg) translateZ(84px) scale(1);filter:brightness(1.04)}
+.arc-hp.hp-back-r:hover{transform:translate(-14%,-50%) rotate(4deg) translateZ(84px) scale(1);filter:brightness(1.04)}
+/* dim the other two so the hovered screen is the clear subject */
+.arc-hero-stage:hover .arc-hp:not(:hover){filter:brightness(.5) saturate(.92)}
+/* screen-name caption, revealed on hover */
+.arc-hp .hp-cap{position:absolute;left:50%;bottom:14px;transform:translateX(-50%) translateY(8px);z-index:3;
+  background:rgba(18,24,36,.86);backdrop-filter:blur(6px);color:var(--a-cream);font-family:'Zen Kaku Gothic New',sans-serif;
+  font-weight:700;font-size:11.5px;letter-spacing:.04em;padding:6px 14px;border-radius:999px;white-space:nowrap;
+  border:1px solid rgba(255,255,255,.18);box-shadow:0 10px 24px -8px rgba(0,0,0,.6);pointer-events:none;opacity:0;
+  transition:opacity .35s var(--ease),transform .35s var(--ease)}
+.arc-hp:hover .hp-cap{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* hero icon = playful launch link */
 a.arc-appicon{cursor:pointer;text-decoration:none;position:relative;animation:arcIcoBob 4.2s var(--ease) infinite}
@@ -1175,9 +1190,9 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
         </div>
       </div>
       <div class="arc-hero-stage reveal" data-d="2">
-        <div class="arc-hp hp-back-l"><img src="assets/arco/arco-reel-time.png" alt=""></div>
-        <div class="arc-hp hp-back-r"><img src="assets/arco/arco-discover-summary.png" alt=""></div>
-        <div class="arc-hp hp-front"><img src="assets/arco/arco-home.png" alt="Arco ホーム画面"></div>
+        <div class="arc-hp hp-back-l"><img src="assets/arco/arco-reel-time.png" alt=""><span class="hp-cap">ハイライト</span></div>
+        <div class="arc-hp hp-back-r"><img src="assets/arco/arco-discover-summary.png" alt=""><span class="hp-cap">発見サマリー</span></div>
+        <div class="arc-hp hp-front"><img src="assets/arco/arco-home.png" alt="Arco ホーム画面"><span class="hp-cap">ホーム</span></div>
         <div class="arc-badge bg-top">スマホのデータを、<b>旅の記憶に。</b></div>
         <div class="arc-badge bg-bot"><b>6画面</b>・動くプロトタイプ</div>
       </div>
