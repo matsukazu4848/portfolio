@@ -1688,46 +1688,90 @@ function sgOnScroll(){
 let sgTick=false;
 addEventListener('scroll',()=>{if(!sgTick){sgTick=true;requestAnimationFrame(()=>{sgTick=false;sgOnScroll();});}});
 
-// ---- scroll-snap to each slide (desktop scrollytelling) ----
-let snapTimer,isSnapping=false,snapRAF=null;
-function sgSnapPoints(n){const start=0.13,end=0.99,span=(end-start)/n;const pts=[0];for(let i=0;i<n;i++)pts.push(start+i*span+0.55*span);return {pts,span};}
-function cancelSnap(){if(snapRAF){cancelAnimationFrame(snapRAF);snapRAF=null;}isSnapping=false;}
-function snapTween(targetY,dur){
+// ---- desktop slide paging: one deliberate step per gesture ----
+// A mouse wheel emits big discrete notches; a Mac trackpad emits a fast burst of tiny inertial
+// ones. Position-scrubbed snapping felt right only on the latter. Instead we intercept the input,
+// advance exactly ONE slide per gesture, and lock out the rest of the burst — so every device
+// (mouse, any trackpad, keyboard) flips one slide at a time. Visuals still come from sgRender()
+// driven by the scroll tween below.
+const SG_PTS=(n)=>{const start=0.13,end=0.99,span=(end-start)/n;const pts=[0];for(let i=0;i<n;i++)pts.push(start+i*span+0.55*span);return pts;};
+let sgPaging=false,sgPageRAF=null,sgGlideId=0;
+function sgGlideTo(targetY,dur){
   const startY=scrollY,dist=targetY-startY,t0=performance.now();
-  if(Math.abs(dist)<2)return;
-  isSnapping=true;
+  if(Math.abs(dist)<2){sgPaging=false;return;}
+  const myId=++sgGlideId; // a newer glide supersedes this one — stale step/failsafe must no-op
+  sgPaging=true;
+  if(sgPageRAF)cancelAnimationFrame(sgPageRAF);
   (function step(now){
+    if(myId!==sgGlideId)return; // superseded
     const t=Math.min(1,(now-t0)/dur);
     const e=1-Math.pow(1-t,3); // easeOutCubic
-    scrollTo(0,startY+dist*e);
-    if(t<1){snapRAF=requestAnimationFrame(step);}else{snapRAF=null;isSnapping=false;}
+    window.scrollTo({top:startY+dist*e,behavior:'instant'}); // 'instant' so html{scroll-behavior:smooth} doesn't double-animate
+    if(t<1){sgPageRAF=requestAnimationFrame(step);}
+    else{sgPageRAF=null;setTimeout(()=>{if(myId===sgGlideId)sgPaging=false;},90);} // brief cooldown swallows trailing inertia
   })(t0);
-  // failsafe: if rAF stalls, finish & release the lock
-  setTimeout(()=>{if(isSnapping){scrollTo(0,targetY);snapRAF&&cancelAnimationFrame(snapRAF);snapRAF=null;isSnapping=false;}},dur+450);
+  // failsafe: if rAF stalls, finish & release the lock — but only if this glide is still the current one
+  setTimeout(()=>{if(myId===sgGlideId&&sgPaging){window.scrollTo({top:targetY,behavior:'instant'});if(sgPageRAF)cancelAnimationFrame(sgPageRAF);sgPageRAF=null;sgPaging=false;}},dur+400);
 }
-function sgSnap(){
-  if(MOBILE()||isSnapping)return;
+// snapshot of the active scrolly, or null when there's nothing to page (mobile / not a scrolly view / not pinned)
+function sgPagerState(){
+  if(MOBILE())return null;
   const v=document.querySelector('.view.active');
   const sec=v&&v.querySelector('.scrolly');
-  if(!sec)return;
-  const total=sec.offsetHeight-window.innerHeight;
-  if(total<=0)return;
+  if(!sec)return null;
+  const total=sec.offsetHeight-innerHeight;
+  if(total<=0)return null;
   const rectTop=sec.getBoundingClientRect().top;
-  if(rectTop>4||-rectTop>total-4)return; // only while pinned; let user exit at ends
+  const engaged=rectTop<=4&&-rectTop<total-4; // panel fills the viewport (between first and last stop)
   const p=Math.max(0,Math.min(1,-rectTop/total));
-  const n=(sgEls&&sgEls.slides.length)||4;
-  const {pts,span}=sgSnapPoints(n);
-  if(p>pts[pts.length-1]+span*0.5)return; // past last slide → free scroll to outro
-  let best=pts[0],bd=1e9;
-  pts.forEach(pt=>{const d=Math.abs(pt-p);if(d<bd){bd=d;best=pt;}});
-  if(bd*total<4)return; // already there
-  // shorter glide for nearer targets, capped — feels immediate yet smooth
-  const dist=Math.abs(best-p)*total;
-  snapTween(scrollY+(best-p)*total,Math.min(520,260+dist*0.55));
+  const pts=SG_PTS(sec.querySelectorAll('.sg-slide').length||4);
+  return {sec,total,rectTop,p,pts,engaged};
 }
-addEventListener('scroll',()=>{if(MOBILE()||isSnapping)return;clearTimeout(snapTimer);snapTimer=setTimeout(sgSnap,60);});
-// user input during a snap cancels it immediately
-['wheel','touchmove','keydown','pointerdown'].forEach(ev=>addEventListener(ev,()=>{if(isSnapping)cancelSnap();},{passive:true}));
+// is there a slide to move to in this direction? (no move, just a peek)
+function sgCanStep(s,dir){
+  if(!s||!s.engaged)return false;
+  return dir>0 ? s.pts.some(pt=>pt>s.p+0.004) : s.pts.some(pt=>pt<s.p-0.004);
+}
+// step one slide in dir (+1 next / -1 prev). returns true if it moved (false ⇒ at an edge, release to native scroll)
+function sgStep(dir){
+  const s=sgPagerState();
+  if(!sgCanStep(s,dir))return false;
+  let target=null;
+  if(dir>0){for(const pt of s.pts){if(pt>s.p+0.004){target=pt;break;}}}
+  else{for(let i=s.pts.length-1;i>=0;i--){if(s.pts[i]<s.p-0.004){target=s.pts[i];break;}}}
+  const base=scrollY+s.rectTop; // scrollY at which rectTop===0
+  const targetY=base+target*s.total;
+  sgGlideTo(targetY,Math.min(640,300+Math.abs(targetY-scrollY)*0.5));
+  return true;
+}
+// "armed" guards against a trackpad's long inertia tail paging twice: after one step the pager
+// disarms and only re-arms once input has been quiet for ~130ms. A continuous burst (mouse flick or
+// trackpad inertia) therefore advances exactly one slide; distinct gestures each advance one.
+let sgArmed=true,sgDisarmT=null;
+function sgRearmSoon(){clearTimeout(sgDisarmT);sgDisarmT=setTimeout(()=>{sgArmed=true;},130);}
+addEventListener('wheel',(e)=>{
+  const s=sgPagerState();
+  if(!s||!s.engaged)return;                       // not on a pinned scrolly → normal page scroll
+  if(Math.abs(e.deltaY)<4)return;                 // micro jitter → ignore entirely
+  const dir=Math.sign(e.deltaY);
+  if(sgPaging||!sgArmed){                          // mid-glide or cooling down
+    if(sgCanStep(s,dir))e.preventDefault();        // keep swallowing the burst, unless we're at an edge (let them exit)
+    sgRearmSoon();
+    return;
+  }
+  if(sgStep(dir)){sgArmed=false;sgRearmSoon();e.preventDefault();} // consumed one slide
+  // else: at an edge → don't preventDefault, native scroll carries the user out of the section
+},{passive:false});
+addEventListener('keydown',(e)=>{
+  const s=sgPagerState();
+  if(!s||!s.engaged)return;
+  let dir=0;
+  if(e.key==='ArrowDown'||e.key==='PageDown'||e.key===' '||e.key==='Spacebar')dir=1;
+  else if(e.key==='ArrowUp'||e.key==='PageUp')dir=-1;
+  else return;
+  if(sgPaging||!sgArmed){if(sgCanStep(s,dir))e.preventDefault();sgRearmSoon();return;}
+  if(sgStep(dir)){sgArmed=false;sgRearmSoon();e.preventDefault();}
+});
 
 // ---- about: scroll-scrubbed intro video ----
 function abVideoScroll(){
