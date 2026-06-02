@@ -891,7 +891,7 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
   <section class="ab-intro" id="ab-intro">
     <div class="ab-intro-pin">
       <video class="ab-intro-vid" muted playsinline preload="auto" poster="assets/about-video-poster.jpg">
-        <source src="assets/about-intro.mp4" type="video/mp4">
+        <source src="assets/about-intro.mp4?v=2" type="video/mp4">
       </video>
       <div class="ab-intro-label">About me — 為人</div>
       <div class="ab-intro-hint"><span>スクロールして再生</span><span class="ab-intro-arrow">↓</span></div>
@@ -1546,7 +1546,9 @@ function setActive(id,target){
   if(view.querySelector('.scrolly')&&!MOBILE()){requestAnimationFrame(()=>{sgInit();sgRender(0);});}
   if(id==='about'){const vid=document.querySelector('#ab-intro .ab-intro-vid');if(vid){
     if(MOBILE()){vid.loop=true;vid.muted=true;vid.play().catch(()=>{});}
-    else{vid.loop=false;vid.pause();const seek=()=>{try{vid.currentTime=0;}catch(e){}};vid.readyState>=1?seek():vid.addEventListener('loadedmetadata',seek,{once:true});requestAnimationFrame(abVideoScroll);}
+    else{vid.loop=false;vid.pause();abShownT=0;abTargetP=0;
+      const init=()=>{try{vid.currentTime=0;}catch(e){}abReadScroll();};
+      vid.readyState>=1?init():vid.addEventListener('loadedmetadata',init,{once:true});}
   }}
 }
 function go(id,target){
@@ -1774,22 +1776,41 @@ addEventListener('keydown',(e)=>{
 });
 
 // ---- about: scroll-scrubbed intro video ----
-function abVideoScroll(){
-  if(MOBILE())return;
+// The clip is re-encoded all-intra (every frame a keyframe) so any currentTime seek is frame-accurate
+// and cheap on any hardware. On top of that we don't slam currentTime to the raw scroll position —
+// we ease a "shown time" toward the scroll target in a rAF loop, so a mouse wheel's big discrete jumps
+// become smooth playback instead of stutter. Result: clean scrubbing on mouse, any trackpad, any GPU.
+let abTargetP=0,abShownT=0,abLoopOn=false;
+function abActiveVid(){
+  if(MOBILE())return null;
   const v=document.getElementById('view-about');
-  if(!v||!v.classList.contains('active'))return;
+  if(!v||!v.classList.contains('active'))return null;
   const sec=document.getElementById('ab-intro');
   const vid=sec&&sec.querySelector('.ab-intro-vid');
-  if(!vid)return;
-  const total=sec.offsetHeight-window.innerHeight;
-  const p=total>0?Math.max(0,Math.min(1,-sec.getBoundingClientRect().top/total)):0;
-  const dur=vid.duration;
-  if(dur&&isFinite(dur)){const t=p*(dur-0.05);if(Math.abs(vid.currentTime-t)>0.016){try{vid.currentTime=t;}catch(e){}}}
-  const hint=sec.querySelector('.ab-intro-hint');
-  if(hint)hint.style.opacity=(1-cl(p,0.02,0.16)).toFixed(2);
+  return vid?{sec,vid}:null;
+}
+function abReadScroll(){ // scroll → target progress (cheap; the rAF loop does the easing/seeking)
+  const a=abActiveVid();if(!a)return;
+  const total=a.sec.offsetHeight-window.innerHeight;
+  abTargetP=total>0?Math.max(0,Math.min(1,-a.sec.getBoundingClientRect().top/total)):0;
+  const hint=a.sec.querySelector('.ab-intro-hint');
+  if(hint)hint.style.opacity=(1-cl(abTargetP,0.02,0.16)).toFixed(2);
+  if(!abLoopOn){abLoopOn=true;requestAnimationFrame(abFrame);}
+}
+function abFrame(){
+  const a=abActiveVid();
+  if(!a){abLoopOn=false;return;}
+  const dur=a.vid.duration;
+  if(!dur||!isFinite(dur)){abLoopOn=false;return;} // metadata not ready yet — next scroll re-kicks
+  const targetT=abTargetP*(dur-1/24);
+  abShownT+=(targetT-abShownT)*0.2;                 // ease toward target → smooths choppy input
+  if(Math.abs(targetT-abShownT)<0.008)abShownT=targetT;
+  if(Math.abs(a.vid.currentTime-abShownT)>0.008){try{a.vid.currentTime=abShownT;}catch(e){}}
+  if(Math.abs(targetT-abShownT)>0.001)requestAnimationFrame(abFrame);
+  else abLoopOn=false;                              // settled — stop until the next scroll
 }
 let abTick=false;
-addEventListener('scroll',()=>{if(!abTick){abTick=true;requestAnimationFrame(()=>{abTick=false;abVideoScroll();});}});
+addEventListener('scroll',()=>{if(!abTick){abTick=true;requestAnimationFrame(()=>{abTick=false;abReadScroll();});}});
 
 // works: hovered folder's hero becomes the section background
 (function(){
