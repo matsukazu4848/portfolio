@@ -744,6 +744,217 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
   .arc-ba-mid{padding:6px 0}
   .arc-flow-desc{max-width:none}
 }
+
+/* ===== This Site (meta page) ===== */
+#view-site{background:var(--bg)}
+.st-wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.st-wrap.narrow{max-width:760px}
+.st-label{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--orange);margin-bottom:22px}
+/* hero */
+.st-hero{position:relative;overflow:hidden;color:#EAEDF1;padding:130px 0 56px;
+  background:radial-gradient(120% 90% at 80% 0%,#222C3A 0%,#171E27 55%,#12171E 100%)}
+.st-grain{position:absolute;inset:0;opacity:.45;pointer-events:none;
+  background:radial-gradient(rgba(255,255,255,.05) 1px,transparent 1px);background-size:4px 4px}
+.st-hero .st-wrap{position:relative;z-index:1}
+.st-tag-row{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;letter-spacing:.16em;color:var(--orange-soft)}
+.st-logo{font-family:'Outfit',sans-serif;font-weight:800;font-size:clamp(46px,9vw,104px);line-height:1;letter-spacing:-.02em;margin:18px 0 0;color:#fff}
+.st-logo .dot{color:var(--orange)}
+.st-kind{font-size:14px;color:#9AA6B2;margin-top:12px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.04em}
+.st-tagline{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(22px,3.6vw,34px);margin-top:30px;color:#fff;line-height:1.4}
+.st-sub{max-width:600px;color:#B7C0CB;font-size:15px;margin-top:18px}
+.st-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.st-pill{font-size:12.5px;letter-spacing:.04em;color:#C7D0DA;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 14px}
+/* spec strip */
+.st-spec{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:48px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden}
+.st-spec-i{background:rgba(255,255,255,.02);padding:24px 18px;text-align:center}
+.st-spec-i b{display:block;font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(30px,5vw,46px);color:#fff;line-height:1}
+.st-spec-i span{display:block;margin-top:8px;font-size:11.5px;letter-spacing:.1em;color:#8C97A3;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+/* sections */
+.st-sec{padding:84px 0}
+.st-paper{background:var(--card)}
+.st-statement{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(23px,3.4vw,33px);line-height:1.55;color:var(--navy);letter-spacing:.01em}
+.st-statement b{color:var(--orange)}
+.st-note{font-size:15.5px;color:#3a4654;margin-top:24px}
+.st-note b{color:var(--navy);font-weight:700}
+/* decisions */
+.st-dec{margin-top:6px;border-top:1px solid var(--line)}
+.st-dec-i{display:grid;grid-template-columns:64px 1fr;gap:8px;padding:26px 0;border-bottom:1px solid var(--line);align-items:start}
+.st-no{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:15px;font-weight:600;color:var(--orange);padding-top:4px}
+.st-dec-i h3{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:18px;color:var(--navy)}
+.st-dec-i p{font-size:14.5px;color:#55606D;margin-top:7px}
+/* cards */
+.st-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:6px}
+.st-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+.st-card-k{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
+.st-card h4{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:17px;color:var(--navy);margin-top:10px}
+.st-card p{font-size:14px;color:#55606D;margin-top:9px}
+/* close */
+.st-source{display:inline-block;margin-top:30px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;color:var(--navy);
+  border:1px solid var(--navy);border-radius:999px;padding:11px 22px;text-decoration:none;transition:.25s var(--ease)}
+.st-source:hover{background:var(--navy);color:#fff}
+/* ambient real-screen wall behind hero */
+.st-hero-wall{position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);height:140px;z-index:0;
+  opacity:.1;filter:blur(1px);pointer-events:none;
+  background:url('assets/site-montage.jpg?v=1') repeat-x;background-size:1586px 140px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 15%,#000 85%,transparent);
+  animation:stDrift 50s linear infinite}
+@keyframes stDrift{to{background-position-x:-1586px}}
+/* visible drifting film strip of real screens */
+.st-strip{position:relative;background:#12171E;padding:30px 0 34px;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)}
+.st-strip-head{max-width:var(--maxw);margin:0 auto 18px;padding:0 24px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.st-strip-head .k{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--orange)}
+.st-strip-head .t{font-size:14px;color:#9AA6B2}
+.st-strip-head .t b{color:#EAEDF1;font-weight:700}
+.st-strip-track{height:140px;background:url('assets/site-montage.jpg?v=1') repeat-x;background-size:1586px 140px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
+  animation:stDrift 40s linear infinite}
+/* per-card real-screen backgrounds, revealed on hover */
+.st-card{position:relative;overflow:hidden;isolation:isolate}
+.st-card::before{content:"";position:absolute;inset:0;z-index:-1;background-image:var(--img);background-size:cover;background-position:center;
+  opacity:.06;transition:opacity .5s var(--ease),transform .6s var(--ease);transform:scale(1.05)}
+.st-card:hover::before{opacity:.17;transform:scale(1)}
+.st-card:hover{border-color:rgba(207,111,45,.4)}
+@media (prefers-reduced-motion:reduce){ .st-hero-wall,.st-strip-track{animation:none} }
+@media (max-width:760px){
+  .st-hero{padding:108px 0 44px}
+  .st-spec{grid-template-columns:repeat(2,1fr)}
+  .st-cards{grid-template-columns:1fr}
+  .st-sec{padding:60px 0}
+  .st-dec-i{grid-template-columns:48px 1fr}
+}
+
+/* ===== バーチャルン (project) ===== */
+#view-vn{
+  --vn-ink:#0F211C; --vn-teal:#23A98E; --vn-sun:#F4B740;
+  --vn-mint:#E9F6F1; --vn-cream:#FBFAF8; --vn-navy:#16261F; --vn-mut:#5C6B64;
+  --vn-line:rgba(22,38,31,.12); --vn-edge:rgba(255,255,255,.13);
+  background:var(--vn-cream); color:var(--vn-navy);
+}
+#view-vn .vn-wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+#view-vn .vn-wrap.narrow{max-width:760px}
+.vn-label{font-family:'Outfit',sans-serif;font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--vn-teal)}
+.vn-sec{padding:clamp(72px,10vw,128px) 0;position:relative;overflow:hidden}
+.vn-paper{background:var(--vn-cream)}
+.vn-mint{background:var(--vn-mint)}
+.vn-cream{background:#F4F1EA}
+.vn-dark{background:var(--vn-ink);color:#EAF2EE}
+.vn-statement{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(23px,3.5vw,38px);line-height:1.5;letter-spacing:.01em}
+.vn-statement b{color:var(--vn-teal)}
+.vn-dark .vn-statement b,.vn-mint .vn-statement b{color:#1B8C76}
+.vn-dark .vn-statement b{color:#5FD6BC}
+.vn-lead{font-size:15.5px;line-height:1.95;color:#3a4a44;margin-top:22px;max-width:64ch}
+.vn-dark .vn-lead{color:rgba(234,242,238,.74)}
+.vn-head .vn-label{display:block;margin-bottom:14px}
+/* hero */
+.vn-hero{position:relative;overflow:hidden;color:#EAF2EE;padding:120px 0 70px;
+  background:radial-gradient(130% 100% at 78% 6%,#1C4439 0%,#123029 52%,#0E211C 100%)}
+.vn-hero .vn-wrap{position:relative;z-index:2}
+.vn-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.vn-hero-kind{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;letter-spacing:.04em;color:#9DC4B8;margin-top:12px}
+.vn-logo{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(40px,7vw,80px);line-height:1.05;color:#fff;margin-top:16px;letter-spacing:.02em}
+.vn-logo .dot{color:var(--vn-teal)}
+.vn-tagline{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:clamp(18px,2.6vw,26px);color:#CFEDE4;margin-top:24px}
+.vn-hero-sub{color:#A9C7BC;font-size:15px;margin-top:18px;max-width:46ch}
+.vn-hero-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.vn-pill{border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:7px 15px;font-size:12.5px;color:#CFE6DD}
+.vn-cta{display:inline-flex;align-items:center;gap:8px;margin-top:28px;background:var(--vn-teal);color:#06140F;font-weight:700;font-size:14.5px;border-radius:999px;padding:13px 24px;text-decoration:none;transition:.25s var(--ease)}
+.vn-cta:hover{background:#3FC7AC;transform:translateY(-2px)}
+.vn-stage{position:relative;height:clamp(360px,46vw,520px)}
+.vn-ph{position:absolute;border-radius:26px;overflow:hidden;background:#fff;box-shadow:0 30px 70px rgba(0,0,0,.4);border:5px solid #0c1b16}
+.vn-ph img{display:block;width:100%}
+.vn-ph.p-back{width:46%;left:4%;top:11%;transform:rotate(-7deg);filter:brightness(.93)}
+.vn-ph.p-front{width:50%;right:3%;top:0;transform:rotate(4deg)}
+/* meta */
+.vn-meta{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:46px;background:var(--vn-line);border:1px solid var(--vn-line);border-radius:16px;overflow:hidden}
+.vn-meta div{background:var(--vn-cream);padding:20px 22px}
+.vn-meta dt{font-family:'Outfit',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--vn-teal);margin-bottom:7px}
+.vn-meta dd{margin:0;font-size:14.5px;font-weight:500;color:var(--vn-navy);line-height:1.6}
+/* problem */
+.vn-pains{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.vn-pain{background:#fff;border:1px solid var(--vn-line);border-radius:16px;padding:24px}
+.vn-pain h3{font-family:'Zen Kaku Gothic New';font-weight:700;font-size:16px;color:var(--vn-navy)}
+.vn-pain ul{margin:12px 0 0;padding-left:1.1em}
+.vn-pain li{font-size:13.5px;color:var(--vn-mut);line-height:1.8}
+.vn-quote{margin-top:42px;border-left:3px solid var(--vn-teal);padding:4px 0 4px 24px;max-width:62ch;font-size:16px;line-height:1.9;color:var(--vn-navy)}
+.vn-quote cite{display:block;margin-top:12px;font-style:normal;font-size:13px;color:var(--vn-mut)}
+.vn-statrow{display:flex;gap:30px;align-items:center;flex-wrap:wrap;margin-top:46px}
+.vn-stat-big{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(56px,11vw,108px);line-height:.9;color:var(--vn-teal);letter-spacing:-.03em}
+.vn-stat-cap{font-family:'Zen Kaku Gothic New';font-weight:700;font-size:clamp(15px,2.2vw,20px);color:var(--vn-navy);max-width:22ch;line-height:1.55}
+/* between diagram */
+.vn-between{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;margin-top:48px;border:1px solid var(--vn-edge);border-radius:18px;overflow:hidden}
+.vn-bt{padding:30px 22px;text-align:center}
+.vn-bt .t{font-family:'Zen Kaku Gothic New';font-weight:700;font-size:17px}
+.vn-bt .s{font-size:12.5px;color:rgba(234,242,238,.6);margin-top:8px;line-height:1.7}
+.vn-bt.gap{background:rgba(95,214,188,.1);border-left:1px dashed var(--vn-edge);border-right:1px dashed var(--vn-edge)}
+.vn-bt.gap .t{color:#5FD6BC}
+/* persona */
+.vn-persona{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:start}
+.vn-pcard{background:var(--vn-mint);border-radius:20px;padding:30px}
+.vn-pcard .nm{font-family:'Zen Kaku Gothic New';font-weight:900;font-size:24px;color:var(--vn-navy)}
+.vn-pcard .mt{font-size:13px;color:var(--vn-mut);margin-top:4px}
+.vn-pcard ul{margin:18px 0 0;padding-left:1.1em}
+.vn-pcard li{font-size:13.5px;color:#46554e;line-height:1.85}
+.vn-story p{font-size:15px;line-height:1.95;color:#3a4a44}
+.vn-story .key{margin-top:22px;font-family:'Zen Kaku Gothic New';font-weight:900;font-size:clamp(18px,2.6vw,24px);color:var(--vn-navy);line-height:1.6}
+.vn-story .key b{color:var(--vn-teal)}
+/* evolution */
+.vn-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.vn-step{background:#fff;border:1px solid var(--vn-line);border-radius:16px;padding:24px}
+.vn-step .k{font-family:ui-monospace,monospace;font-size:12px;color:var(--vn-teal);letter-spacing:.08em}
+.vn-step h3{font-family:'Zen Kaku Gothic New';font-weight:700;font-size:16px;color:var(--vn-navy);margin-top:10px}
+.vn-step p{font-size:13.5px;color:var(--vn-mut);margin-top:8px;line-height:1.8}
+.vn-step.is-final{background:var(--vn-navy);border-color:var(--vn-navy)}
+.vn-step.is-final .k{color:var(--vn-sun)}
+.vn-step.is-final h3{color:#fff}
+.vn-step.is-final p{color:rgba(255,255,255,.72)}
+/* product */
+.vn-prod{display:grid;grid-template-columns:1fr .82fr;gap:40px;align-items:center}
+.vn-roles{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vn-role{background:#fff;border:1px solid var(--vn-line);border-radius:16px;padding:22px}
+.vn-role .ic{width:38px;height:38px;border-radius:11px;background:var(--vn-mint);display:flex;align-items:center;justify-content:center;font-size:19px}
+.vn-role h4{font-family:'Zen Kaku Gothic New';font-weight:700;font-size:15.5px;color:var(--vn-navy);margin-top:14px}
+.vn-role p{font-size:13px;color:var(--vn-mut);margin-top:7px;line-height:1.75}
+.vn-phone-proof{justify-self:center;width:min(300px,80%);border-radius:28px;overflow:hidden;border:6px solid #0c1b16;box-shadow:0 30px 70px rgba(16,33,28,.28)}
+.vn-phone-proof img{display:block;width:100%}
+/* gallery */
+.vn-gal{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.vn-gal figure{margin:0}
+.vn-gal img{width:100%;border-radius:16px;border:1px solid var(--vn-line);box-shadow:0 12px 30px rgba(16,33,28,.08)}
+.vn-gal figcaption{font-size:12px;color:var(--vn-mut);margin-top:10px;text-align:center;line-height:1.5}
+/* two-up image+text */
+.vn-two{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.vn-two-img img{width:min(260px,72%);display:block;margin:0 auto;border-radius:24px;border:5px solid #0c1b16;box-shadow:0 24px 50px rgba(16,33,28,.2)}
+.vn-two.rev .vn-two-img{order:2}
+.vn-two h3{font-family:'Zen Kaku Gothic New';font-weight:800;font-size:clamp(19px,2.6vw,26px);color:var(--vn-navy)}
+.vn-two p{font-size:14.5px;color:#46554e;margin-top:14px;line-height:1.9}
+/* placeholder */
+.vn-soon{margin-top:24px;border:1px dashed var(--vn-line);border-radius:16px;padding:34px;text-align:center;color:var(--vn-mut);font-size:13.5px;background:rgba(35,169,142,.05)}
+/* nurse dashboard (desktop frame) */
+.vn-dash{margin-top:30px;border-radius:18px;overflow:hidden;border:1px solid var(--vn-line);box-shadow:0 26px 60px rgba(16,33,28,.14);background:#fff}
+.vn-dash-bar{display:flex;align-items:center;gap:7px;padding:11px 16px;background:#0F211C}
+.vn-dash-bar i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.22)}
+.vn-dash-bar span{margin-left:10px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:#9DC4B8}
+.vn-dash img{display:block;width:100%}
+.vn-priv{display:flex;gap:14px;align-items:flex-start;margin-top:26px;background:var(--vn-mint);border-radius:14px;padding:20px 22px}
+.vn-priv .ic{font-size:20px;flex:none}
+.vn-priv p{font-size:14px;color:#2f463e;line-height:1.85}
+.vn-priv b{color:var(--vn-teal)}
+/* outro */
+.vn-outro .big{font-family:'Zen Kaku Gothic New';font-weight:900;font-size:clamp(22px,3.4vw,36px);line-height:1.55}
+.vn-outro .big b{color:#5FD6BC}
+@media (max-width:760px){
+  .vn-hero{padding:100px 0 50px}
+  .vn-hero-grid,.vn-persona,.vn-prod,.vn-two{grid-template-columns:1fr}
+  .vn-two.rev .vn-two-img{order:0}
+  .vn-stage{height:330px;margin-top:8px}
+  .vn-pains,.vn-meta,.vn-steps{grid-template-columns:1fr}
+  .vn-gal{grid-template-columns:repeat(2,1fr)}
+  .vn-between{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
@@ -828,6 +1039,17 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>UI/UXデザイン</p>
           </div>
         </div>
+        <div class="folder reveal" data-d="1" data-hero="assets/virtualn/virtualn-welcome.jpg" onclick="go('vn')" tabindex="0" role="button" aria-label="バーチャルンを開く" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('vn');}">
+          <div class="folder-vis" style="view-transition-name:vt-vn">
+            <img class="folder-back" src="assets/folder-back.svg" alt="">
+            <div class="folder-sheet"><img src="assets/virtualn/virtualn-welcome.jpg" alt=""></div>
+            <img class="folder-front" src="assets/folder-front.svg" alt="">
+          </div>
+          <div class="folder-label">
+            <h3>バーチャルン</h3>
+            <p>AI・UXデザイン</p>
+          </div>
+        </div>
         <div class="folder reveal" data-d="2" data-hero="assets/tsudanuma-hero.jpg" onclick="go('tsudanuma')" tabindex="0" role="button" aria-label="津田沼祭ブースを開く">
           <div class="folder-vis" style="view-transition-name:vt-tsudanuma">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
@@ -881,6 +1103,17 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
           <div class="folder-label">
             <h3>Photo</h3>
             <p>写真</p>
+          </div>
+        </div>
+        <div class="folder reveal" data-d="5" data-hero="assets/site-cover.jpg?v=1" onclick="go('site')" tabindex="0" role="button" aria-label="このサイトについてを開く" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('site');}">
+          <div class="folder-vis" style="view-transition-name:vt-site">
+            <img class="folder-back" src="assets/folder-back.svg" alt="">
+            <div class="folder-sheet"><img src="assets/site-cover.jpg?v=1" alt=""></div>
+            <img class="folder-front" src="assets/folder-front.svg" alt="">
+          </div>
+          <div class="folder-label">
+            <h3>This Site</h3>
+            <p>Web・自作</p>
           </div>
         </div>
       </div>
@@ -1537,8 +1770,294 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
   </section>
 </main>
 
+<!-- ============ THIS SITE (META) ============ -->
+<main id="view-site" class="view">
+  <button class="sg-back" onclick="go('home','works')">← Work</button>
+
+  <!-- HERO -->
+  <header class="st-hero">
+    <div class="st-hero-wall" aria-hidden="true"></div>
+    <div class="st-grain"></div>
+    <div class="st-wrap">
+      <div class="st-tag-row reveal">Project 07 / Web・自作</div>
+      <h1 class="st-logo reveal" data-d="1">This&nbsp;Site<span class="dot">.</span></h1>
+      <div class="st-kind reveal" data-d="1">いま見ているサイトそのもの ／ Web</div>
+      <p class="st-tagline reveal" data-d="2">「テンプレで作る」を、疑った。</p>
+      <p class="st-sub reveal" data-d="3">このページを表示しているサイトそのものが、作品。ライブラリを一切使わず、HTML 1ファイルに手書きで作り切った。背骨「当たり前を疑い、最後まで作り切る」を、器のレベルで実演している。</p>
+      <div class="st-pills reveal" data-d="3">
+        <span class="st-pill">個人制作</span>
+        <span class="st-pill">設計はAIと協働</span>
+      </div>
+      <div class="st-spec reveal" data-d="4">
+        <div class="st-spec-i"><b>0</b><span>外部ライブラリ</span></div>
+        <div class="st-spec-i"><b>1</b><span>HTMLファイル</span></div>
+        <div class="st-spec-i"><b>0</b><span>ビルド工程</span></div>
+        <div class="st-spec-i"><b>100%</b><span>手書き</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FILM STRIP of real screens -->
+  <section class="st-strip" aria-label="このサイトに収めた画面たち">
+    <div class="st-strip-head">
+      <span class="k">Inside this site</span>
+      <span class="t"><b>7プロジェクト・40以上の画面</b>を、すべて1枚のHTMLに手で配置した。</span>
+    </div>
+    <div class="st-strip-track" aria-hidden="true"></div>
+  </section>
+
+  <!-- WHY -->
+  <section class="st-sec st-paper">
+    <div class="st-wrap narrow">
+      <div class="st-label reveal">Why self-made</div>
+      <p class="st-statement reveal" data-d="1">ポートフォリオは、<b>既製のサービスに合わせて作るもの</b>——という前提を、まず疑った。</p>
+      <p class="st-note reveal" data-d="2">採用の場で見られているのは、並べた作品だけじゃない。「どう作る人か」も含めて自分だと思う。だから中身に器を合わせるより、伝えたい順序のために器ごと設計した。テンプレートに自分を削って収めるのとは、逆の選び方をしている。</p>
+    </div>
+  </section>
+
+  <!-- DECISIONS -->
+  <section class="st-sec">
+    <div class="st-wrap narrow">
+      <div class="st-label reveal">Decisions — 制約を、選んだ</div>
+      <div class="st-dec">
+        <div class="st-dec-i reveal" data-d="1"><span class="st-no">00</span><div><h3>ライブラリ 0</h3><p>アニメーションも画面遷移も、フレームワークに頼らず手書き（WAAPI・CSS）。全部を理解した状態で持っておきたかった。</p></div></div>
+        <div class="st-dec-i reveal" data-d="2"><span class="st-no">01</span><div><h3>1ファイル構成</h3><p>HTML・CSS・JS を1枚に収めた。分割しないことで、全体を頭に乗せたまま速く直せる。</p></div></div>
+        <div class="st-dec-i reveal" data-d="3"><span class="st-no">02</span><div><h3>ビルドなし</h3><p>保存して push すれば、1〜2分で公開。手と公開のあいだに、工程を挟まない。</p></div></div>
+        <div class="st-dec-i reveal" data-d="4"><span class="st-no">03</span><div><h3>検証を自動化</h3><p>ヘッドレスChromeで各画面をスクショし、レイアウト崩れやエラーを機械的に検出。「最後まで」を、根性ではなく仕組みで支える。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WITH AI -->
+  <section class="st-sec st-paper">
+    <div class="st-wrap narrow">
+      <div class="st-label reveal">With AI</div>
+      <p class="st-statement reveal" data-d="1">手が速くなったぶん、<b>判断に時間を使う。</b></p>
+      <p class="st-note reveal" data-d="2">実装の多くは AI（Claude Code）と一緒に書いた。コードを速く出せるようになったぶん、自分の時間は「何を作るか・どんな順で見せるか・どこを引くか」という判断に寄せている。これは卒業研究のテーマ——<b>AI時代にデザイナーは何に時間とエネルギーを使うべきか</b>——への、いまの自分なりの答えでもある。</p>
+    </div>
+  </section>
+
+  <!-- UNDER THE HOOD -->
+  <section class="st-sec">
+    <div class="st-wrap narrow">
+      <div class="st-label reveal">Under the hood — 作り切った細部</div>
+      <div class="st-cards">
+        <div class="st-card reveal" data-d="1" style="--img:url('assets/hero-poster.jpg')"><div class="st-card-k">Performance</div><h4>動画 53MB → 17MB</h4><p>ヒーロー動画を再エンコードで圧縮。画質を保ったまま、最初の体感速度を取りに行った。</p></div>
+        <div class="st-card reveal" data-d="2" style="--img:url('assets/about-video-poster.jpg')"><div class="st-card-k">Scroll</div><h4>フレーム精度のスクラブ</h4><p>自己紹介の動画は全フレームをキーフレーム化（all-intra）。スクロールに合わせて、滑らかにフレーム単位で送る。</p></div>
+        <div class="st-card reveal" data-d="3" style="--img:url('assets/segtape-hero.jpg?v=2')"><div class="st-card-k">Interaction</div><h4>1ジェスチャ＝1枚</h4><p>作品スライドはトラックパッドの慣性で2枚飛びがち。世代ガードで「1回めくり＝1枚」に制御した。</p></div>
+        <div class="st-card reveal" data-d="4" style="--img:url('assets/arco/arco-home.png')"><div class="st-card-k">Motion</div><h4>手書きのイントロ</h4><p>Arcoを開くと流れる文字アニメは、ライブラリ無しのWAAPIだけで実装。散って、整列して、ロゴになる。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section class="st-sec st-paper">
+    <div class="st-wrap narrow">
+      <div class="st-label reveal">Never done</div>
+      <p class="st-statement reveal" data-d="1">このサイトは、<b>完成しない。</b></p>
+      <p class="st-note reveal" data-d="2">直したいところは、見つけたその日に直す。push すれば、また公開される。完成を待たずに更新し続けられること自体が、「最後まで作り切る」の続きだと思っている。</p>
+      <a class="st-source reveal" data-d="3" href="https://github.com/matsukazu4848/portfolio" target="_blank" rel="noopener">&lt;/&gt; ソースをGitHubで全部読む ↗</a>
+      <div><button class="back" style="font-size:15px;margin-top:30px" onclick="go('home','works')">← 他のプロジェクトへ戻る</button></div>
+    </div>
+  </section>
+</main>
+
+<!-- ============ バーチャルン (META PROJECT) ============ -->
+<main id="view-vn" class="view">
+  <button class="sg-back" onclick="go('home','works')">← Work</button>
+
+  <!-- HERO -->
+  <header class="vn-hero">
+    <div class="vn-wrap vn-hero-grid">
+      <div>
+        <div class="vn-label reveal">学校 × メンタルヘルスAI ／ チーム制作</div>
+        <h1 class="vn-logo reveal" data-d="1">バーチャルン<span class="dot">.</span></h1>
+        <div class="vn-hero-kind reveal" data-d="1">小学校 低〜中学年の「居場所」を支えるAI ／ Web プロトタイプ</div>
+        <p class="vn-tagline reveal" data-d="2">学校でしか会えない友だち。</p>
+        <p class="vn-hero-sub reveal" data-d="3">教室にも、保健室にも居場所がない——その「あいだ」にいる小学生（低〜中学年）のための、話せるAIキャラクター。</p>
+        <div class="vn-hero-row reveal" data-d="3">
+          <span class="vn-pill">チーム制作</span>
+          <span class="vn-pill">担当：リサーチ・コンセプト・プロトタイプ</span>
+        </div>
+        <a class="vn-cta reveal" data-d="4" href="https://app-74bfdc79.base44.app" target="_blank" rel="noopener">▶ 動くプロトタイプを触る ↗</a>
+      </div>
+      <div class="vn-stage reveal" data-d="2">
+        <div class="vn-ph p-back"><img src="assets/virtualn/virtualn-welcome.jpg" alt="バーチャルン ウェルカム画面"></div>
+        <div class="vn-ph p-front"><img src="assets/virtualn/virtualn-chat.jpg" alt="バーチャルン チャット画面"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- OVERVIEW -->
+  <section class="vn-sec vn-paper">
+    <div class="vn-wrap narrow">
+      <div class="vn-label reveal" style="margin-bottom:22px">Overview</div>
+      <p class="vn-statement reveal" data-d="1">「保健室の人手不足」から始めて、<br><b>本当に足りないのは“相談する前”の支援</b>だと気づいた。</p>
+      <p class="vn-lead reveal" data-d="2">教室に居づらい。保健室に行くほどではない。でも、誰かに話したい——。そんな小学生（低〜中学年）の「教室と保健室のあいだ」を支えるために、毎日学校で会えるAIキャラクター「バーチャルン」を提案し、動くプロトタイプまで作った。</p>
+      <dl class="vn-meta reveal" data-d="2">
+        <div><dt>Category</dt><dd>学校 × メンタルヘルスAI／小学生の居場所支援</dd></div>
+        <div><dt>対象</dt><dd>小学校 低学年〜中学年（友達づくりにつまずく層）</dd></div>
+        <div><dt>担当</dt><dd>リサーチ・調査／コンセプト・再定義／プロトタイプ制作</dd></div>
+        <div><dt>Team &amp; Tools</dt><dd>チーム制作 ／ Base44・GPT（プロト）／ Miro・インタビュー（リサーチ）</dd></div>
+        <div><dt>Period</dt><dd>2025年（数ヶ月）</dd></div>
+        <div><dt>体制</dt><dd>リサーチは全員 → 課題別の小チームで最終提案</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 01 PROBLEM -->
+  <section class="vn-sec vn-cream">
+    <div class="vn-wrap">
+      <div class="vn-head"><span class="vn-label reveal">01 — 問題発見</span>
+        <h2 class="vn-statement reveal" data-d="1">保健室は、<b>心と体のセーフスペース</b>になっていた。</h2></div>
+      <div class="vn-pains" style="margin-top:36px">
+        <div class="vn-pain reveal" data-d="1"><h3>保健室側</h3><ul><li>相談内容が複雑化（心のケアまで広がる）</li><li>利用者の増加・保健室登校の長期化</li><li>養護教諭は一人職で多忙・孤立しやすい</li></ul></div>
+        <div class="vn-pain reveal" data-d="2"><h3>生徒側</h3><ul><li>保健室へ行くべきか判断できない</li><li>先生に直接話すことへの抵抗感</li><li>不調を言葉にできず、我慢してしまう</li></ul></div>
+      </div>
+      <blockquote class="vn-quote reveal" data-d="2">「どこが痛いか言えない子が多い。大事にしているのは、威圧しない・最後まで聞く・決めつけないこと」<cite>— 保健室の先生インタビューより</cite></blockquote>
+      <div class="vn-statrow">
+        <div class="vn-stat-big reveal" data-d="1">30–50<span style="font-size:.34em;letter-spacing:0"> 人/日</span></div>
+        <div class="vn-stat-cap reveal" data-d="2">多い日は1日にこれだけの生徒が来室する。現場は、すでに手いっぱいだった。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 REFRAME -->
+  <section class="vn-sec vn-dark">
+    <div class="vn-wrap narrow">
+      <span class="vn-label reveal" style="color:#5FD6BC">02 — 問題の再定義</span>
+      <p class="vn-statement reveal" data-d="1" style="margin-top:18px">足りないのは、先生の数じゃない。<br><b>生徒が“相談する前”の、ひと押しだ。</b></p>
+      <p class="vn-lead reveal" data-d="2">人手不足を解こうとしていた。でも掘っていくと、本当の空白はもっと手前にあった。「教室には居づらい／保健室ほどではない／相談したいけど勇気が出ない」——この状態の生徒を、まだ誰も受け止めていなかった。</p>
+    </div>
+    <div class="vn-wrap">
+      <div class="vn-between reveal" data-d="2">
+        <div class="vn-bt"><div class="t">教室</div><div class="s">みんなの中。<br>居づらいと逃げ場がない</div></div>
+        <div class="vn-bt gap"><div class="t">この「あいだ」</div><div class="s">話したいけど、<br>その一歩が出ない空白</div></div>
+        <div class="vn-bt"><div class="t">保健室</div><div class="s">ケアの場。<br>行くにはハードルが高い</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PERSONA -->
+  <section class="vn-sec vn-paper">
+    <div class="vn-wrap">
+      <span class="vn-label reveal">03 — ペルソナ</span>
+      <div class="vn-persona" style="margin-top:28px">
+        <div class="vn-pcard reveal" data-d="1">
+          <div class="nm">長谷川 岳</div>
+          <div class="mt">小学3年・8歳・一人っ子</div>
+          <ul>
+            <li>進級のクラス替えで仲の良い友達と離れ、新しいクラスで「友達の作り方」がわからなくなった</li>
+            <li>人見知りで最初の一歩が出にくい。打ち解けると活発</li>
+            <li>スマホ未所持。両親は優しいが共働きで相談しづらい</li>
+            <li>10分休憩で会話に入れず、なんとなく保健室へ</li>
+          </ul>
+        </div>
+        <div class="vn-story reveal" data-d="2">
+          <p>岳は、居場所を探して保健室に通うようになった。でも——</p>
+          <p class="key">保健室に通うことで、<b>逆に孤独感が増していった。</b></p>
+          <p style="margin-top:18px">「友達が欲しい」この子に、保健室登校を促すのはミスマッチだった。必要なのは“特別な場所”ではなく、日常の中でゆるくつながり直せる接点だ——という確信が、ここで生まれた。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 CONCEPT -->
+  <section class="vn-sec vn-cream">
+    <div class="vn-wrap">
+      <span class="vn-label reveal">04 — コンセプトの探索</span>
+      <h2 class="vn-statement reveal" data-d="1" style="margin-top:16px">必要なのは「診断」ではなく、<b>「居られること」</b>だった。</h2>
+      <div class="vn-steps" style="margin-top:36px">
+        <div class="vn-step reveal" data-d="1"><div class="k">却下した案</div><h3>症状セルフチェック</h3><p>頭痛・腹痛を入力→「保健室へ/様子見」を提案。機械的・医療的で、感情を扱えず却下。</p></div>
+        <div class="vn-step reveal" data-d="2"><div class="k">気づき</div><h3>第三の居場所</h3><p>教室でも保健室でもない場所。“来る理由”を音楽や交換ノートで作り、趣味でゆるくつながる。</p></div>
+        <div class="vn-step reveal is-final" data-d="3"><div class="k">最終提案 →</div><h3>AIキャラに翻訳</h3><p>「居場所・来る理由・つながり」の核を、毎日学校で会えるAIキャラ＝バーチャルンに昇華した。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 PRODUCT -->
+  <section class="vn-sec vn-mint">
+    <div class="vn-wrap">
+      <span class="vn-label reveal">05 — プロダクト</span>
+      <h2 class="vn-statement reveal" data-d="1" style="margin-top:16px">話を聞くだけじゃない。<b>次の一歩まで、一緒に。</b></h2>
+      <div class="vn-prod" style="margin-top:40px">
+        <div class="vn-roles">
+          <div class="vn-role reveal" data-d="1"><div class="ic">🧩</div><h4>整理する</h4><p>気持ち・体調・状況を分解し、言葉にする。</p></div>
+          <div class="vn-role reveal" data-d="2"><div class="ic">🧭</div><h4>判断を助ける</h4><p>正解を押し付けず「戻る/休む/保健室へ」の選択肢を出す。</p></div>
+          <div class="vn-role reveal" data-d="3"><div class="ic">🪜</div><h4>行動を設計する</h4><p>大きな行動を「席に戻る/深呼吸」など小さく分解。</p></div>
+          <div class="vn-role reveal" data-d="4"><div class="ic">🤝</div><h4>人につなぐ</h4><p>必要なときは保健室・先生へ橋渡しする。</p></div>
+        </div>
+        <div class="vn-phone-proof reveal" data-d="2"><img src="assets/virtualn/virtualn-chat.jpg" alt="バーチャルンのチャット：共感→選択肢→行動→保健室へ"></div>
+      </div>
+      <p class="vn-lead reveal" data-d="3" style="margin-top:30px;max-width:none">実際のチャットでは、まず共感したうえで「友達と話したい／先生に相談したい／少し休みたい」と<b>選択肢</b>を示し、最後に「まとめる／保健室に行く」で<b>行動と橋渡し</b>に着地する。画面の冒頭には必ず「病気かどうかは分からない、困ったら保健室へ」と、<b>できないことを明示</b>している。</p>
+    </div>
+  </section>
+
+  <!-- 06 DESIGN: everyday + safety -->
+  <section class="vn-sec vn-paper">
+    <div class="vn-wrap">
+      <span class="vn-label reveal">06 — 「毎日会う」ための設計</span>
+      <div class="vn-two reveal" data-d="1" style="margin-top:28px">
+        <div class="vn-two-img"><img src="assets/virtualn/virtualn-home.jpg" alt="バーチャルン ホーム画面"></div>
+        <div>
+          <h3>「困った時だけ」に、しない。</h3>
+          <p>朝の健康観察、今日のひとこと、「◯日れんぞく」の継続要素。必要な時だけ会う関係では、いざという時に頼れない。だから“毎日ゆるく会う友だち”として設計した。学校Wi-Fiでしか使えない仕様が、そのまま「学校に来る理由」にもなる。</p>
+        </div>
+      </div>
+      <div class="vn-two rev reveal" data-d="2" style="margin-top:44px">
+        <div class="vn-two-img"><img src="assets/virtualn/virtualn-consent.jpg" alt="バーチャルン 安心の確認画面"></div>
+        <div>
+          <h3>「安心して話せる」を、先に約束する。</h3>
+          <p>話した中身は残さない。残すのは「元気／ちょっと／かなり」だけ。いつでもやめられる。すごく困った時は保健室の先生につなぐ——。AIに「やらないこと（診断・命令・評価・個人情報の取得）」を明確に持たせ、それを最初に約束として見せている。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 SCREENS -->
+  <section class="vn-sec vn-cream">
+    <div class="vn-wrap">
+      <span class="vn-label reveal">07 — 状態を「整理」する4ステップ</span>
+      <p class="vn-lead reveal" data-d="1" style="margin-top:14px;max-width:60ch">言葉にしづらい不調を、選ぶだけで整理できるように。気分 → 体 → 気持ち → 強さ の順で、毎朝かんたんに。</p>
+      <div class="vn-gal" style="margin-top:30px">
+        <figure class="reveal" data-d="1"><img src="assets/virtualn/virtualn-mood.jpg" alt="今日の調子"><figcaption>① 今日の調子</figcaption></figure>
+        <figure class="reveal" data-d="1"><img src="assets/virtualn/virtualn-body.jpg" alt="体のこと"><figcaption>② 体のこと</figcaption></figure>
+        <figure class="reveal" data-d="2"><img src="assets/virtualn/virtualn-feeling.jpg" alt="気持ち"><figcaption>③ 気持ち</figcaption></figure>
+        <figure class="reveal" data-d="2"><img src="assets/virtualn/virtualn-intensity.jpg" alt="どのくらい"><figcaption>④ どのくらい</figcaption></figure>
+        <figure class="reveal" data-d="3"><img src="assets/virtualn/virtualn-done.jpg" alt="記録と継続"><figcaption>記録＋継続</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 NURSE SIDE -->
+  <section class="vn-sec vn-paper">
+    <div class="vn-wrap">
+      <span class="vn-label reveal">08 — 保健室側：通知ダッシュボード</span>
+      <h2 class="vn-statement reveal" data-d="1" style="margin-top:16px;font-size:clamp(20px,2.8vw,30px)">先生には、<b>通知・状況把握・傾向</b>を。負担を増やさず、必要な生徒に気づけるように。</h2>
+      <div class="vn-dash reveal" data-d="2">
+        <div class="vn-dash-bar"><i></i><i></i><i></i><span>保健室ダッシュボード — バーチャルン 通知管理</span></div>
+        <img src="assets/virtualn/virtualn-nurse.jpg" alt="保健室ダッシュボード：今日の通知・緊急・継続不調の集計と、生徒ごとの通知一覧">
+      </div>
+      <div class="vn-priv reveal" data-d="2">
+        <div class="ic">🔒</div>
+        <p><b>会話の中身は、先生にも渡さない。</b>ダッシュボードに出るのは傾向データ（カテゴリ・強さ）と、生徒が任意で書いたコメントだけ。「継続不調」は自動でフラグが立ち、見落としを防ぐ。生徒への約束（残さない）と、先生の“気づける”を両立させた。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL -->
+  <section class="vn-sec vn-dark vn-outro">
+    <div class="vn-wrap narrow">
+      <span class="vn-label reveal" style="color:#5FD6BC">Final concept</span>
+      <p class="big reveal" data-d="1" style="margin-top:18px">教室と保健室のあいだに、<br><b>生徒一人ひとりの、小さな味方を。</b></p>
+      <p class="vn-lead reveal" data-d="2">気持ちを整理し／自分で選び／一歩踏み出し／人とつながる。バーチャルンは会話アプリではなく、生徒の自己決定を支える“新しい学校のインフラ”として提案した。</p>
+      <button class="back reveal" data-d="3" style="font-size:15px;margin-top:34px;color:#5FD6BC" onclick="go('home','works')">← 他のプロジェクトへ戻る</button>
+    </div>
+  </section>
+</main>
+
 <script>
-const views={home:'view-home',about:'view-about',segtape:'view-segtape',tsudanuma:'view-tsudanuma',puipui:'view-puipui',gokan:'view-gokan',foto:'view-foto',arco:'view-arco'};
+const views={home:'view-home',about:'view-about',segtape:'view-segtape',tsudanuma:'view-tsudanuma',puipui:'view-puipui',gokan:'view-gokan',foto:'view-foto',arco:'view-arco',vn:'view-vn',site:'view-site'};
 const MOBILE=()=>matchMedia('(max-width:760px)').matches;
 let introPlayed=false;
 function setActive(id,target){
