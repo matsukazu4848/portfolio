@@ -303,19 +303,25 @@ body.hero-loading nav{opacity:0;pointer-events:none}
 .hero-name-big{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(40px,8.5vw,96px);letter-spacing:-.02em;line-height:1.02;color:var(--navy)}
 .hero-portfolio{margin-top:20px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:.42em;text-transform:uppercase;font-size:14px;color:var(--orange)}
 /* ---- project folders ---- */
-.folders{display:flex;flex-wrap:wrap;gap:48px}
-.folder{width:248px;cursor:pointer;outline:none}
-.folder-vis{position:relative;height:190px;transition:transform .5s var(--ease);filter:drop-shadow(0 18px 26px -14px rgba(150,92,34,.5))}
+.folders{display:flex;flex-wrap:wrap;justify-content:flex-start}
+.folders.feat{gap:clamp(28px,4vw,52px)}
+.folders.feat .folder{width:calc(50% - clamp(28px,4vw,52px));max-width:400px}
+.folders.sub{gap:clamp(20px,2.6vw,34px);margin-top:clamp(40px,6vw,64px)}
+.folders.sub .folder{width:calc(25% - clamp(20px,2.6vw,34px));min-width:168px;max-width:228px}
+.folder{cursor:pointer;outline:none}
+.folder-vis{position:relative;width:100%;aspect-ratio:248/190;transition:transform .5s var(--ease);filter:drop-shadow(0 18px 26px -14px rgba(150,92,34,.5))}
 .folder:hover .folder-vis,.folder:focus-visible .folder-vis{transform:translateY(-10px);filter:drop-shadow(0 30px 38px -16px rgba(150,92,34,.55))}
 .folder-back,.folder-front{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none}
 .folder-back{z-index:1}
 .folder-front{z-index:3}
-.folder-sheet{position:absolute;left:24px;right:24px;top:4px;height:150px;border-radius:8px 8px 5px 5px;overflow:hidden;background:#fff;z-index:2;
-  box-shadow:0 6px 14px rgba(60,40,15,.20);transform:translateY(16px);transition:transform .55s var(--ease)}
+.folder-sheet{position:absolute;left:9.7%;right:9.7%;top:2%;height:79%;border-radius:8px 8px 5px 5px;overflow:hidden;background:#fff;z-index:2;
+  box-shadow:0 6px 14px rgba(60,40,15,.20);transform:translateY(11%);transition:transform .55s var(--ease)}
 .folder-sheet img{width:100%;height:100%;object-fit:cover}
-.folder:hover .folder-sheet,.folder:focus-visible .folder-sheet{transform:translateY(-30px)}
-.folder-label{margin-top:24px}
-.folder-label h3{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:18px;color:var(--navy)}
+.folder:hover .folder-sheet,.folder:focus-visible .folder-sheet{transform:translateY(-20%)}
+.folder-label{margin-top:18px}
+.folders.feat .folder-label{margin-top:22px}
+.folder-label h3{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:700;font-size:16px;color:var(--navy)}
+.folders.feat .folder-label h3{font-size:20px}
 .folder-label p{font-size:13px;color:var(--muted);margin-top:3px}
 
 /* ---- segtape scrollytelling ---- */
@@ -335,6 +341,11 @@ body.hero-loading nav{opacity:0;pointer-events:none}
 .sg-intro h1{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(28px,5vw,52px);line-height:1.3;margin:14px 0}
 .sg-intro p{color:var(--navy);font-size:16px;font-weight:500}
 .sg-hint{margin-top:34px;font-size:11px;letter-spacing:.3em;color:var(--muted);animation:bob 2s var(--ease) infinite}
+.sg-prog{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:40;display:flex;gap:8px;
+  background:rgba(250,246,240,.82);border:1px solid var(--line);border-radius:999px;padding:8px 14px;backdrop-filter:blur(8px);
+  box-shadow:0 8px 22px rgba(30,42,58,.10)}
+.sg-prog i{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .3s var(--ease),width .3s var(--ease)}
+.sg-prog i.on{background:var(--orange);width:20px;border-radius:99px}
 .sg-slides{position:absolute;z-index:6;width:min(96vw,1340px);aspect-ratio:16/9;left:50%;top:50%;transform:translate(-50%,-50%)}
 .sg-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;will-change:transform,opacity;filter:drop-shadow(0 30px 60px rgba(30,42,58,.20))}
 .sg-outro{background:var(--bg2)}
@@ -358,7 +369,7 @@ body.hero-loading nav{opacity:0;pointer-events:none}
   .bg-wrap .bg{filter:none!important;transform:none!important}
   .bg-wrap .scrim{display:none}
   .sg-intro{position:relative;z-index:5;padding:32px 20px 6px}
-  .sg-hint{display:none}
+  .sg-hint,.sg-prog{display:none}
   .sg-slides{position:static;transform:none;left:auto;top:auto;width:100%;aspect-ratio:auto;height:auto;
     display:flex;flex-direction:column;gap:14px;padding:20px 12px 10px}
   .sg-slide{position:static;inset:auto;opacity:1!important;width:100%;height:auto;aspect-ratio:16/9;
@@ -368,7 +379,10 @@ body.hero-loading nav{opacity:0;pointer-events:none}
   .ab-intro{height:auto}
   .ab-intro-pin{position:relative;height:54vh}
   .ab-intro-hint,.ab-intro-label{display:none}
-  .folders{justify-content:center;gap:36px}
+  .folders.feat{gap:18px}
+  .folders.feat .folder{width:calc(50% - 9px);max-width:none}
+  .folders.sub{gap:16px;margin-top:36px}
+  .folders.sub .folder{width:calc(50% - 8px);min-width:0;max-width:none}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important}
@@ -1027,30 +1041,8 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
         <div class="label reveal">Selected Work</div>
         <h2 class="h-sec reveal" data-d="1">プロジェクト</h2>
       </div>
-      <div class="folders">
-        <div class="folder reveal" data-d="1" data-hero-css="linear-gradient(135deg,#0E1117 0%,#1A2030 45%,#2A1520 100%)" onclick="go('arco')" tabindex="0" role="button" aria-label="Arco を開く" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('arco');}">
-          <div class="folder-vis" style="view-transition-name:vt-arco">
-            <img class="folder-back" src="assets/folder-back.svg" alt="">
-            <div class="folder-sheet"><img src="assets/arco/arco-home.png" alt=""></div>
-            <img class="folder-front" src="assets/folder-front.svg" alt="">
-          </div>
-          <div class="folder-label">
-            <h3>Arco</h3>
-            <p>UI/UXデザイン</p>
-          </div>
-        </div>
-        <div class="folder reveal" data-d="1" data-hero="assets/virtualn/virtualn-welcome.jpg" onclick="go('vn')" tabindex="0" role="button" aria-label="バーチャルンを開く" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('vn');}">
-          <div class="folder-vis" style="view-transition-name:vt-vn">
-            <img class="folder-back" src="assets/folder-back.svg" alt="">
-            <div class="folder-sheet"><img src="assets/virtualn/virtualn-welcome.jpg" alt=""></div>
-            <img class="folder-front" src="assets/folder-front.svg" alt="">
-          </div>
-          <div class="folder-label">
-            <h3>バーチャルン</h3>
-            <p>AI・UXデザイン</p>
-          </div>
-        </div>
-        <div class="folder reveal" data-d="2" data-hero="assets/tsudanuma-hero.jpg" onclick="go('tsudanuma')" tabindex="0" role="button" aria-label="津田沼祭ブースを開く">
+      <div class="folders feat">
+        <div class="folder reveal" data-d="1" data-hero="assets/tsudanuma-hero.jpg" onclick="go('tsudanuma')" tabindex="0" role="button" aria-label="津田沼祭ブース">
           <div class="folder-vis" style="view-transition-name:vt-tsudanuma">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/tsudanuma-hero.jpg" alt=""></div>
@@ -1061,7 +1053,7 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>UXデザイン</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="2" data-hero="assets/puipui-hero.jpg" onclick="go('puipui')" tabindex="0" role="button" aria-label="PUIPUIモータースを開く">
+        <div class="folder reveal" data-d="2" data-hero="assets/puipui-hero.jpg" onclick="go('puipui')" tabindex="0" role="button" aria-label="PUIPUIモータース">
           <div class="folder-vis" style="view-transition-name:vt-puipui">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/puipui-hero.jpg" alt=""></div>
@@ -1072,7 +1064,31 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>プロダクト設計</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="3" data-hero="assets/segtape-hero.jpg?v=2" onclick="go('segtape')" tabindex="0" role="button" aria-label="Segtape を開く">
+        <div class="folder reveal" data-d="3" data-hero-css="linear-gradient(135deg,#0E1117 0%,#1A2030 45%,#2A1520 100%)" onclick="go('arco')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('arco');}" tabindex="0" role="button" aria-label="Arco">
+          <div class="folder-vis" style="view-transition-name:vt-arco">
+            <img class="folder-back" src="assets/folder-back.svg" alt="">
+            <div class="folder-sheet"><img src="assets/arco/arco-home.png" alt=""></div>
+            <img class="folder-front" src="assets/folder-front.svg" alt="">
+          </div>
+          <div class="folder-label">
+            <h3>Arco</h3>
+            <p>UI/UXデザイン</p>
+          </div>
+        </div>
+        <div class="folder reveal" data-d="4" data-hero="assets/virtualn/virtualn-welcome.jpg" onclick="go('vn')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('vn');}" tabindex="0" role="button" aria-label="バーチャルン">
+          <div class="folder-vis" style="view-transition-name:vt-vn">
+            <img class="folder-back" src="assets/folder-back.svg" alt="">
+            <div class="folder-sheet"><img src="assets/virtualn/virtualn-welcome.jpg" alt=""></div>
+            <img class="folder-front" src="assets/folder-front.svg" alt="">
+          </div>
+          <div class="folder-label">
+            <h3>バーチャルン</h3>
+            <p>AI・UXデザイン</p>
+          </div>
+        </div>
+      </div>
+      <div class="folders sub">
+        <div class="folder reveal" data-d="1" data-hero="assets/segtape-hero.jpg?v=2" onclick="go('segtape')" tabindex="0" role="button" aria-label="Segtape">
           <div class="folder-vis" style="view-transition-name:vt-segtape">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/segtape-hero.jpg?v=2" alt=""></div>
@@ -1083,7 +1099,7 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>プロダクト</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="4" data-hero="assets/gokan-01.webp" onclick="go('gokan')" tabindex="0" role="button" aria-label="Gokanを開く">
+        <div class="folder reveal" data-d="2" data-hero="assets/gokan-01.webp" onclick="go('gokan')" tabindex="0" role="button" aria-label="Gokan">
           <div class="folder-vis" style="view-transition-name:vt-gokan">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/gokan-01.webp" alt=""></div>
@@ -1094,18 +1110,7 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>空間デザイン</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="5" data-hero="assets/foto-hero.jpg" onclick="go('foto')" tabindex="0" role="button" aria-label="写真を開く">
-          <div class="folder-vis" style="view-transition-name:vt-foto">
-            <img class="folder-back" src="assets/folder-back.svg" alt="">
-            <div class="folder-sheet"><img src="assets/foto-hero.jpg" alt=""></div>
-            <img class="folder-front" src="assets/folder-front.svg" alt="">
-          </div>
-          <div class="folder-label">
-            <h3>Photo</h3>
-            <p>写真</p>
-          </div>
-        </div>
-        <div class="folder reveal" data-d="5" data-hero="assets/site-cover.jpg?v=1" onclick="go('site')" tabindex="0" role="button" aria-label="このサイトについてを開く" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('site');}">
+        <div class="folder reveal" data-d="3" data-hero="assets/site-cover.jpg?v=1" onclick="go('site')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('site');}" tabindex="0" role="button" aria-label="This Site">
           <div class="folder-vis" style="view-transition-name:vt-site">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/site-cover.jpg?v=1" alt=""></div>
@@ -1114,6 +1119,17 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
           <div class="folder-label">
             <h3>This Site</h3>
             <p>Web・自作</p>
+          </div>
+        </div>
+        <div class="folder reveal" data-d="4" data-hero="assets/foto-hero.jpg" onclick="go('foto')" tabindex="0" role="button" aria-label="Photo">
+          <div class="folder-vis" style="view-transition-name:vt-foto">
+            <img class="folder-back" src="assets/folder-back.svg" alt="">
+            <div class="folder-sheet"><img src="assets/foto-hero.jpg" alt=""></div>
+            <img class="folder-front" src="assets/folder-front.svg" alt="">
+          </div>
+          <div class="folder-label">
+            <h3>Photo</h3>
+            <p>写真</p>
           </div>
         </div>
       </div>
@@ -2078,6 +2094,8 @@ function setActive(id,target){
     window.scrollTo(0,0);
   }
   if(view.querySelector('.scrolly')&&!MOBILE()){requestAnimationFrame(()=>{sgInit();sgRender(0);});}
+  buildProg(view);
+  ssReset();
   if(id==='about'){const vid=document.querySelector('#ab-intro .ab-intro-vid');if(vid){
     if(MOBILE()){vid.loop=true;vid.muted=true;vid.play().catch(()=>{});}
     else{vid.loop=false;vid.pause();abShownT=0;abTargetP=0;
@@ -2209,6 +2227,12 @@ function sgRender(p){
     else{op=0;ty=-55;}
     el.style.opacity=op;el.style.transform='translateY('+ty+'px)';el.style.zIndex=6+i;
   });
+  // position indicator — derive index straight from p so it never flashes back to the first slide
+  const dots=document.querySelectorAll('.view.active .sg-prog i');
+  if(dots.length){
+    const idx=p<start?0:Math.min(n-1,Math.floor((p-start)/span));
+    dots.forEach((d,i)=>d.classList.toggle('on',i===idx));
+  }
 }
 window.__sgRender=sgRender; // for verification
 function sgOnScroll(){
@@ -2223,6 +2247,39 @@ function sgOnScroll(){
 }
 let sgTick=false;
 addEventListener('scroll',()=>{if(!sgTick){sgTick=true;requestAnimationFrame(()=>{sgTick=false;sgOnScroll();});}});
+
+// ---- slide position indicator (built per scrollytelling view) ----
+function buildProg(view){
+  document.querySelectorAll('.sg-prog').forEach(el=>el.remove());
+  const sec=view&&view.querySelector('.scrolly');
+  if(!sec||MOBILE())return;
+  const n=sec.querySelectorAll('.sg-slide').length; if(!n)return;
+  const bar=document.createElement('div'); bar.className='sg-prog'; bar.setAttribute('aria-hidden','true');
+  for(let i=0;i<n;i++){const d=document.createElement('i'); if(i===0)d.className='on'; bar.appendChild(d);}
+  view.appendChild(bar);
+}
+
+// ---- inertial smooth scroll (no library) — non-scrollytelling views, desktop, motion-ok ----
+let ssY=0,ssTarget=0,ssRAF=null;
+const ssReduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function ssOK(){ if(ssReduce||MOBILE())return false; const v=document.querySelector('.view.active'); if(!v)return false; if(v.querySelector('.scrolly'))return false; return true; }
+function ssReset(){ if(ssRAF){cancelAnimationFrame(ssRAF);ssRAF=null;} ssY=ssTarget=window.scrollY; }
+function ssLoop(){
+  if(!ssOK()){ssRAF=null;return;}
+  ssY+=(ssTarget-ssY)*0.12;
+  if(Math.abs(ssTarget-ssY)<0.4){ssY=ssTarget;window.scrollTo({top:ssY,behavior:'instant'});ssRAF=null;return;}
+  window.scrollTo({top:ssY,behavior:'instant'});
+  ssRAF=requestAnimationFrame(ssLoop);
+}
+addEventListener('wheel',(e)=>{
+  if(!ssOK())return;
+  e.preventDefault();
+  if(!ssRAF){ssY=ssTarget=window.scrollY;}
+  let dy=e.deltaY; if(e.deltaMode===1)dy*=16; else if(e.deltaMode===2)dy*=innerHeight;
+  const max=document.documentElement.scrollHeight-innerHeight;
+  ssTarget=Math.max(0,Math.min(max,ssTarget+dy));
+  if(!ssRAF)ssRAF=requestAnimationFrame(ssLoop);
+},{passive:false});
 
 // ---- desktop slide paging: one deliberate step per gesture ----
 // A mouse wheel emits big discrete notches; a Mac trackpad emits a fast burst of tiny inertial
