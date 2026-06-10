@@ -159,7 +159,7 @@ footer .ph{max-width:340px;margin:0 auto 18px;text-align:center}
 .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
 .reveal.in{opacity:1;transform:none}
 [data-d="1"]{transition-delay:.08s}[data-d="2"]{transition-delay:.16s}
-[data-d="3"]{transition-delay:.24s}[data-d="4"]{transition-delay:.32s}
+[data-d="3"]{transition-delay:.24s}[data-d="4"]{transition-delay:.32s}[data-d="5"]{transition-delay:.4s}
 
 /* ---- depth / 立体感 (home) ---- */
 section.block.about,section.block#works{position:relative;border-radius:40px 40px 0 0}
@@ -173,6 +173,14 @@ section.block.about,section.block#works{position:relative;border-radius:40px 40p
 #works .h-sec,#works .folder-label h3,#works .folder-label p{transition:color .4s var(--ease)}
 #works.bg-on .h-sec,#works.bg-on .folder-label h3{color:#fff}
 #works.bg-on .folder-label p{color:rgba(255,255,255,.74)}
+/* hover: the project's one-liner fades in on the hovered folder itself */
+.folder-vis::after{content:attr(data-desc);position:absolute;z-index:4;left:12%;right:12%;top:46%;
+  color:#fff;text-shadow:0 1px 2px rgba(122,58,8,.4),0 3px 12px rgba(122,58,8,.28);
+  font-size:13px;font-weight:500;line-height:1.8;letter-spacing:.01em;
+  opacity:0;transform:translateY(8px);transition:opacity .35s var(--ease),transform .5s var(--ease);pointer-events:none}
+.folder:hover .folder-vis::after,.folder:focus-visible .folder-vis::after{opacity:1;transform:none}
+.folders.sub .folder-vis::after{font-size:10.5px;line-height:1.6;left:10%;right:10%;top:45%}
+@media (hover:none){.folder-vis::after{content:none}}
 footer{position:relative;z-index:3;background:var(--bg)}
 .step{box-shadow:0 14px 36px rgba(30,42,58,.07);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
 .step:hover{transform:translateY(-5px);box-shadow:0 24px 54px rgba(30,42,58,.12)}
@@ -304,10 +312,10 @@ body.hero-loading nav{opacity:0;pointer-events:none}
 .hero-portfolio{margin-top:20px;font-family:'Outfit',sans-serif;font-weight:500;letter-spacing:.42em;text-transform:uppercase;font-size:14px;color:var(--orange)}
 /* ---- project folders ---- */
 .folders{display:flex;flex-wrap:wrap;justify-content:flex-start}
-.folders.feat{gap:clamp(28px,4vw,52px)}
-.folders.feat .folder{width:calc(50% - clamp(28px,4vw,52px));max-width:400px}
-.folders.sub{gap:clamp(20px,2.6vw,34px);margin-top:clamp(40px,6vw,64px)}
-.folders.sub .folder{width:calc(25% - clamp(20px,2.6vw,34px));min-width:168px;max-width:228px}
+.folders.feat{--fg:clamp(24px,3.4vw,44px);gap:var(--fg)}
+.folders.feat .folder{width:calc((100% - 2*var(--fg))/3);max-width:330px}
+.folders.sub{--sg:clamp(14px,1.9vw,24px);gap:var(--sg);margin-top:clamp(32px,4.5vw,48px)}
+.folders.sub .folder{width:calc((100% - 4*var(--sg))/5);min-width:0;max-width:190px}
 .folder{cursor:pointer;outline:none}
 .folder-vis{position:relative;width:100%;aspect-ratio:248/190;transition:transform .5s var(--ease);filter:drop-shadow(0 18px 26px -14px rgba(150,92,34,.5))}
 .folder:hover .folder-vis,.folder:focus-visible .folder-vis{transform:translateY(-10px);filter:drop-shadow(0 30px 38px -16px rgba(150,92,34,.55))}
@@ -1042,8 +1050,30 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
         <h2 class="h-sec reveal" data-d="1">プロジェクト</h2>
       </div>
       <div class="folders feat">
-        <div class="folder reveal" data-d="1" data-hero="assets/tsudanuma-hero.jpg" onclick="go('tsudanuma')" tabindex="0" role="button" aria-label="津田沼祭ブース">
-          <div class="folder-vis" style="view-transition-name:vt-tsudanuma">
+        <div class="folder reveal" data-d="1" data-hero="assets/arco-cover.webp?v=2" onclick="go('arco')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('arco');}" tabindex="0" role="button" aria-label="Arco">
+          <div class="folder-vis" style="view-transition-name:vt-arco" data-desc="写真はあるのに、旅として繋がらない。旅の記録を6画面で再構成したモバイルアプリのUI/UX。動くプロトタイプ公開中。">
+            <img class="folder-back" src="assets/folder-back.svg" alt="">
+            <div class="folder-sheet"><img src="assets/arco-cover.webp?v=2" alt=""></div>
+            <img class="folder-front" src="assets/folder-front.svg" alt="">
+          </div>
+          <div class="folder-label">
+            <h3>Arco</h3>
+            <p>UI/UXデザイン</p>
+          </div>
+        </div>
+        <div class="folder reveal" data-d="2" data-hero="assets/virtualn-cover.webp?v=2" onclick="go('vn')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('vn');}" tabindex="0" role="button" aria-label="バーチャルン">
+          <div class="folder-vis" style="view-transition-name:vt-vn" data-desc="小学生の「言えない不調」を保健室につなぐAIパートナー。リサーチから再定義・プロトタイプまで、チームで。">
+            <img class="folder-back" src="assets/folder-back.svg" alt="">
+            <div class="folder-sheet"><img src="assets/virtualn-cover.webp?v=2" alt=""></div>
+            <img class="folder-front" src="assets/folder-front.svg" alt="">
+          </div>
+          <div class="folder-label">
+            <h3>バーチャルン</h3>
+            <p>AI・UXデザイン</p>
+          </div>
+        </div>
+        <div class="folder reveal" data-d="3" data-hero="assets/tsudanuma-hero.jpg" onclick="go('tsudanuma')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('tsudanuma');}" tabindex="0" role="button" aria-label="津田沼祭ブース">
+          <div class="folder-vis" style="view-transition-name:vt-tsudanuma" data-desc="「スキルがなくても主役になれる」。4つの制約を同時に満たす祭ブースの体験設計。12名・約2ヶ月。">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/tsudanuma-hero.jpg" alt=""></div>
             <img class="folder-front" src="assets/folder-front.svg" alt="">
@@ -1053,8 +1083,10 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>UXデザイン</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="2" data-hero="assets/puipui-hero.jpg" onclick="go('puipui')" tabindex="0" role="button" aria-label="PUIPUIモータース">
-          <div class="folder-vis" style="view-transition-name:vt-puipui">
+      </div>
+      <div class="folders sub">
+        <div class="folder reveal" data-d="1" data-hero="assets/puipui-hero.jpg" onclick="go('puipui')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('puipui');}" tabindex="0" role="button" aria-label="PUIPUIモータース">
+          <div class="folder-vis" style="view-transition-name:vt-puipui" data-desc="「指定ギアを使う」は規則ではなく、ただの慣習だった。前提を疑い、減速機を自作して挑んだ5週間。">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/puipui-hero.jpg" alt=""></div>
             <img class="folder-front" src="assets/folder-front.svg" alt="">
@@ -1064,32 +1096,8 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>プロダクト設計</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="3" data-hero-css="linear-gradient(135deg,#0E1117 0%,#1A2030 45%,#2A1520 100%)" onclick="go('arco')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('arco');}" tabindex="0" role="button" aria-label="Arco">
-          <div class="folder-vis" style="view-transition-name:vt-arco">
-            <img class="folder-back" src="assets/folder-back.svg" alt="">
-            <div class="folder-sheet"><img src="assets/arco/arco-home.png" alt=""></div>
-            <img class="folder-front" src="assets/folder-front.svg" alt="">
-          </div>
-          <div class="folder-label">
-            <h3>Arco</h3>
-            <p>UI/UXデザイン</p>
-          </div>
-        </div>
-        <div class="folder reveal" data-d="4" data-hero="assets/virtualn/virtualn-welcome.jpg" onclick="go('vn')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('vn');}" tabindex="0" role="button" aria-label="バーチャルン">
-          <div class="folder-vis" style="view-transition-name:vt-vn">
-            <img class="folder-back" src="assets/folder-back.svg" alt="">
-            <div class="folder-sheet"><img src="assets/virtualn/virtualn-welcome.jpg" alt=""></div>
-            <img class="folder-front" src="assets/folder-front.svg" alt="">
-          </div>
-          <div class="folder-label">
-            <h3>バーチャルン</h3>
-            <p>AI・UXデザイン</p>
-          </div>
-        </div>
-      </div>
-      <div class="folders sub">
-        <div class="folder reveal" data-d="1" data-hero="assets/segtape-hero.jpg?v=2" onclick="go('segtape')" tabindex="0" role="button" aria-label="Segtape">
-          <div class="folder-vis" style="view-transition-name:vt-segtape">
+        <div class="folder reveal" data-d="2" data-hero="assets/segtape-hero.jpg?v=2" onclick="go('segtape')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('segtape');}" tabindex="0" role="button" aria-label="Segtape">
+          <div class="folder-vis" style="view-transition-name:vt-segtape" data-desc="安定している「理由」を、隠さず見せるテープ台。構造をそのままかたちにしたプロダクト。">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/segtape-hero.jpg?v=2" alt=""></div>
             <img class="folder-front" src="assets/folder-front.svg" alt="">
@@ -1099,8 +1107,8 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>プロダクト</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="2" data-hero="assets/gokan-01.webp" onclick="go('gokan')" tabindex="0" role="button" aria-label="Gokan">
-          <div class="folder-vis" style="view-transition-name:vt-gokan">
+        <div class="folder reveal" data-d="3" data-hero="assets/gokan-01.webp" onclick="go('gokan')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('gokan');}" tabindex="0" role="button" aria-label="Gokan">
+          <div class="folder-vis" style="view-transition-name:vt-gokan" data-desc="“無駄の余白”を五感で感じる共創空間。今の学生に足りないものから逆算した空間設計。">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/gokan-01.webp" alt=""></div>
             <img class="folder-front" src="assets/folder-front.svg" alt="">
@@ -1110,8 +1118,8 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>空間デザイン</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="3" data-hero="assets/site-cover.jpg?v=1" onclick="go('site')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('site');}" tabindex="0" role="button" aria-label="This Site">
-          <div class="folder-vis" style="view-transition-name:vt-site">
+        <div class="folder reveal" data-d="4" data-hero="assets/site-cover.jpg?v=1" onclick="go('site')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('site');}" tabindex="0" role="button" aria-label="This Site">
+          <div class="folder-vis" style="view-transition-name:vt-site" data-desc="「テンプレで作る」を、疑った。ライブラリゼロで設計から実装・公開までやり切ったこのサイト自身。">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/site-cover.jpg?v=1" alt=""></div>
             <img class="folder-front" src="assets/folder-front.svg" alt="">
@@ -1121,8 +1129,8 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
             <p>Web・自作</p>
           </div>
         </div>
-        <div class="folder reveal" data-d="4" data-hero="assets/foto-hero.jpg" onclick="go('foto')" tabindex="0" role="button" aria-label="Photo">
-          <div class="folder-vis" style="view-transition-name:vt-foto">
+        <div class="folder reveal" data-d="5" data-hero="assets/foto-hero.jpg" onclick="go('foto')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();go('foto');}" tabindex="0" role="button" aria-label="Photo">
+          <div class="folder-vis" style="view-transition-name:vt-foto" data-desc="撮ることは、よく見ること。「当たり前」に気づく観察の目を養った写真たち。">
             <img class="folder-back" src="assets/folder-back.svg" alt="">
             <div class="folder-sheet"><img src="assets/foto-hero.jpg" alt=""></div>
             <img class="folder-front" src="assets/folder-front.svg" alt="">
@@ -2077,6 +2085,7 @@ const views={home:'view-home',about:'view-about',segtape:'view-segtape',tsudanum
 const MOBILE=()=>matchMedia('(max-width:760px)').matches;
 let introPlayed=false;
 function setActive(id,target){
+  curView=id;
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const view=document.getElementById(views[id]);
   view.classList.add('active');
@@ -2103,15 +2112,37 @@ function setActive(id,target){
       vid.readyState>=1?init():vid.addEventListener('loadedmetadata',init,{once:true});}
   }}
 }
-function go(id,target){
-  try{sessionStorage.setItem('pf-view',id);sessionStorage.setItem('pf-target',target||'');}catch(e){}
+// ---- hash routing: every view gets a shareable URL (#/arco …), back button works ----
+let curView='home';
+const viewScroll={};                                  // last scroll position per view (for back-button restore)
+const hashFor=id=>id==='home'?'':'#/'+id;
+function routeFromHash(){
+  const id=location.hash.replace(/^#\/?/,'');
+  return views[id]?id:'home';
+}
+function applyRoute(id,target,restoreY){
   const after=()=>{ if(id==='arco'&&!arcoIntroSeen){arcoIntroSeen=true;playArcoIntro();} };
+  const swap=()=>{ setActive(id,target);
+    if(restoreY!=null)window.scrollTo({top:restoreY,behavior:'instant'}); };
   if(document.startViewTransition){
-    const vt=document.startViewTransition(()=>setActive(id,target));
+    const vt=document.startViewTransition(swap);
     // wait until the view-transition snapshot is gone, so the intro plays once on real DOM
     vt.finished.then(after).catch(after);
-  }else{ setActive(id,target); requestAnimationFrame(after); }
+  }else{ swap(); requestAnimationFrame(after); }
 }
+function go(id,target){
+  viewScroll[curView]=scrollY;
+  applyRoute(id,target);
+  const h=hashFor(id), url=h||location.pathname+location.search;
+  if((location.hash||'')!==h)history.pushState({v:id},'',url);
+  else history.replaceState({v:id},'',url);
+}
+addEventListener('popstate',()=>{
+  viewScroll[curView]=scrollY;
+  const id=routeFromHash();
+  // restore the Work-section position when coming back home; detail views restart at top
+  applyRoute(id,null,id==='home'?(viewScroll.home||0):null);
+});
 // ---- Arco intro motion graphic ----
 let arcoIntroSeen=false;
 function playArcoIntro(){
@@ -2425,9 +2456,8 @@ addEventListener('scroll',()=>{if(!abTick){abTick=true;requestAnimationFrame(()=
 
 // init
 addEventListener('DOMContentLoaded',()=>{
-  // restore the last view on reload (so reloading inside a Work page stays there)
-  let saved=null,savedTarget='';
-  try{saved=sessionStorage.getItem('pf-view');savedTarget=sessionStorage.getItem('pf-target')||'';}catch(e){}
+  // the URL hash is the source of truth: direct links and reloads land on the right view
+  const initView=routeFromHash();
   document.querySelectorAll('.stmt-video video').forEach(v=>{
     const sp=()=>{try{v.playbackRate=0.6;}catch(e){}};
     sp(); v.addEventListener('loadedmetadata',sp); v.addEventListener('play',sp);
@@ -2441,13 +2471,15 @@ addEventListener('DOMContentLoaded',()=>{
     }else{ kick(); }
   });
 
-  if(saved&&views[saved]&&saved!=='home'){
-    // jump straight to the saved view; no home-intro hold. Arco still plays its motion once.
+  if(initView!=='home'){
+    // jump straight to the linked view; no home-intro hold. Arco still plays its motion once.
     introPlayed=true;
-    setActive(saved,savedTarget);
-    if(saved==='arco'&&!arcoIntroSeen){arcoIntroSeen=true;requestAnimationFrame(()=>playArcoIntro());}
+    setActive(initView);
+    history.replaceState({v:initView},'',hashFor(initView));
+    if(initView==='arco'&&!arcoIntroSeen){arcoIntroSeen=true;requestAnimationFrame(()=>playArcoIntro());}
     return;
   }
+  history.replaceState({v:'home'},'',location.pathname+location.search);
 
   runReveal();
   // intro: while the hero video buffers, show a loader. The 7-second hold that reveals
