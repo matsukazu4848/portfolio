@@ -10,12 +10,6 @@
   status = 301
   force = true
 
-# アセットは長期キャッシュ（差し替え時は ?v=N で世代管理する運用）
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
 # セキュリティヘッダ（全ページ共通）
 # CSP: サイトは自前アセット＋Google Fontsのみ。インラインscript/style/イベント属性で
 # 動いているため 'unsafe-inline' は許可（外部からのスクリプト読み込みは遮断される）。
