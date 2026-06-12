@@ -1,0 +1,7 @@
+.git
+.gitignore
+.assetsignore
+netlify.toml
+wrangler.jsonc
+.wrangler
+.DS_Store
