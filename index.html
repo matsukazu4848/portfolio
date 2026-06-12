@@ -979,6 +979,111 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
   .vn-between{grid-template-columns:1fr}
 }
 </style>
+<link rel="preload" as="image" href="assets/hero2/crow.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/koi.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/orca.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/sakurariver.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/tokyo.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/corridor.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/cityaerial.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/redgrid.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/moto.webp?v=1">
+<link rel="preload" as="image" href="assets/hero2/park.webp?v=1">
+<style id="hv2css">
+/* ===== hero v2: photo mosaic + liquid glass (scoped to #hv2) ===== */
+#hv2{height:100svh;min-height:520px;background:#0a0c10;touch-action:none;cursor:default}
+#hv2 .hv2-abs{position:absolute;inset:0}
+#hv2Board{position:absolute;inset:0;z-index:1}
+.hv2-tile{position:absolute;overflow:hidden;cursor:pointer;opacity:1;will-change:left,top,width,height,opacity}
+.hv2-tile.anim{transition:left .74s cubic-bezier(.32,1.22,.3,1),top .74s cubic-bezier(.32,1.22,.3,1),
+  width .74s cubic-bezier(.32,1.22,.3,1),height .74s cubic-bezier(.32,1.22,.3,1),opacity .5s ease}
+.hv2-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .55s cubic-bezier(.2,.8,.2,1),filter .45s ease;pointer-events:none;-webkit-user-drag:none}
+@media(hover:hover){ .hv2-tile:not(.stage):hover img{transform:scale(1.07);filter:brightness(1)} }
+.hv2-tile:not(.stage) img{filter:brightness(.86)}
+.hv2-tile.stage img{filter:brightness(1)}
+.hv2-tile.hidden{opacity:0;pointer-events:none}
+#hv2Dive{position:absolute;inset:0;z-index:20;display:none}
+#hv2Dive.on{display:block}
+.hv2-dph{position:absolute;inset:0;overflow:hidden;will-change:transform,opacity;visibility:hidden}
+.hv2-dph img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-drag:none}
+#hv2TitleWrap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:30;
+  perspective:900px;pointer-events:none;opacity:0;transition:opacity .9s ease}
+#hv2TitleWrap.on{opacity:1}
+#hv2Gtitle{position:relative;transform:scale(.96);transition:transform 1s cubic-bezier(.16,1,.3,1);will-change:transform}
+#hv2TitleWrap.on #hv2Gtitle{transform:scale(1)}
+#hv2Gjelly{position:relative;will-change:transform}
+#hv2Gmask2{display:none;position:absolute;inset:0;pointer-events:none;
+  backdrop-filter:blur(14px) saturate(1.3) brightness(1.06);
+  -webkit-backdrop-filter:blur(14px) saturate(1.3) brightness(1.06);
+  background:rgba(255,255,255,.07);will-change:transform}
+body.hv2-adv #hv2Gmask2{display:block}
+#hv2Gmask{display:none;position:relative;margin:0 auto;pointer-events:none;
+  backdrop-filter:url(#hv2liq);-webkit-backdrop-filter:blur(6px) saturate(1.5) brightness(1.18);
+  background:rgba(255,255,255,.16);
+  filter:drop-shadow(0 -1.5px 0 rgba(255,255,255,.34)) drop-shadow(0 10px 26px rgba(0,0,0,.58))}
+#hv2Gmask::before{content:"";position:absolute;inset:0;
+  background:radial-gradient(150px 84px at var(--gx,32%) var(--gy,18%),rgba(255,255,255,.36),rgba(255,255,255,0) 62%)}
+#hv2Gmask::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(105deg,rgba(255,255,255,0) 41%,rgba(255,255,255,.32) 50%,rgba(255,255,255,0) 59%),
+    linear-gradient(178deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 38%,rgba(255,255,255,0) 72%,rgba(255,255,255,.06) 100%);
+  background-size:300% 100%,100% 100%;
+  background-position:var(--gl,150%) 0,0 0}
+body.hv2-adv #hv2Gmask{display:block}
+body.hv2-adv #hv2Ttext{position:absolute;inset:0;opacity:0}
+#hv2Ttext{text-align:center;color:transparent;
+  background:linear-gradient(180deg,rgba(255,255,255,.84),rgba(255,255,255,.5));
+  -webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 3px 12px rgba(0,0,0,.35))}
+#hv2Ttext .nm{margin:0;font-family:'Outfit',sans-serif;font-size:clamp(30px,5.6vw,72px);font-weight:700;
+  letter-spacing:.01em;line-height:1.08;white-space:nowrap}
+#hv2Ttext .pf{margin-top:clamp(8px,1.2vw,14px);font-family:'Outfit',sans-serif;font-size:clamp(10px,1.2vw,14px);
+  font-weight:500;letter-spacing:.82em;text-indent:.82em}
+#hv2Cue{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:31;mix-blend-mode:difference;
+  opacity:0;transition:opacity .8s ease .4s}
+#hv2Cue.on{opacity:.8}
+#hv2CueMouse{display:block;width:21px;height:34px;border:1.5px solid #fff;border-radius:11px;position:relative}
+#hv2CueMouse::after{content:"";position:absolute;left:50%;top:6px;width:3px;height:7px;margin-left:-1.5px;
+  border-radius:2px;background:#fff;animation:hv2cue 1.9s ease-in-out infinite}
+#hv2CueSwipe{display:none;width:22px;height:36px;position:relative}
+#hv2CueSwipe::before,#hv2CueSwipe::after{content:"";position:absolute;left:50%;width:11px;height:11px;
+  border-top:1.6px solid #fff;border-right:1.6px solid #fff;
+  transform:translateX(-50%) rotate(-45deg);animation:hv2sw 1.9s ease-in-out infinite}
+#hv2CueSwipe::before{top:14px}
+#hv2CueSwipe::after{top:24px;animation-delay:.18s}
+@media(pointer:coarse){#hv2CueMouse{display:none}#hv2CueSwipe{display:block}}
+@keyframes hv2cue{0%,100%{transform:translateY(0);opacity:1}70%{transform:translateY(11px);opacity:0}71%{opacity:0}}
+@keyframes hv2sw{0%,100%{transform:translateX(-50%) translateY(0) rotate(-45deg);opacity:.9}
+  60%{transform:translateX(-50%) translateY(-9px) rotate(-45deg);opacity:.15}}
+#hv2Down{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:32;mix-blend-mode:difference;
+  width:22px;height:30px;opacity:0;pointer-events:none;transition:opacity .7s ease}
+#hv2Down.on{opacity:.9}
+#hv2Down::before,#hv2Down::after{content:"";position:absolute;left:50%;width:12px;height:12px;
+  border-bottom:1.7px solid #fff;border-right:1.7px solid #fff;
+  transform:translateX(-50%) rotate(45deg);animation:hv2dn 1.7s ease-in-out infinite}
+#hv2Down::before{top:2px}
+#hv2Down::after{top:12px;animation-delay:.16s}
+@keyframes hv2dn{0%,100%{transform:translateX(-50%) translateY(0) rotate(45deg);opacity:.9}
+  60%{transform:translateX(-50%) translateY(8px) rotate(45deg);opacity:.15}}
+#hv2Tapcue{position:absolute;width:12px;height:12px;border-radius:50%;background:rgba(255,255,255,.95);
+  z-index:15;pointer-events:none;opacity:0;mix-blend-mode:difference;
+  transition:opacity .6s ease,left .74s cubic-bezier(.32,1.22,.3,1),top .74s cubic-bezier(.32,1.22,.3,1)}
+#hv2Tapcue.on{opacity:.85}
+#hv2Tapcue::before,#hv2Tapcue::after{content:"";position:absolute;inset:-5px;border:1.5px solid rgba(255,255,255,.9);
+  border-radius:50%;animation:hv2rip 2.7s ease-out infinite}
+#hv2Tapcue::after{animation-delay:1.35s}
+@keyframes hv2rip{0%{transform:scale(.55);opacity:.9}70%{transform:scale(2.5);opacity:0}100%{transform:scale(2.5);opacity:0}}
+@media (prefers-reduced-motion:reduce){
+  #hv2CueMouse::after,#hv2CueSwipe::before,#hv2CueSwipe::after,#hv2Tapcue::before,#hv2Tapcue::after,
+  #hv2Down::before,#hv2Down::after{animation:none}
+  .hv2-tile.anim{transition:opacity .5s ease}
+}
+@media (max-width:760px){
+  #hv2Ttext .nm{font-size:clamp(26px,8.2vw,40px)}
+  #hv2Ttext .pf{letter-spacing:.6em;text-indent:.6em}
+}
+</style>
+
 </head>
 <body>
 
@@ -995,17 +1100,42 @@ a.arc-appicon:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
 <!-- ============ HOME ============ -->
 <main id="view-home" class="view active">
 
-  <header class="hero hero--video">
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg?v=2">
-      <source src="assets/hero-bg.mp4?v=5" type="video/mp4">
-    </video>
+  <header class="hero" id="hv2">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <filter id="hv2liq" x="-8%" y="-8%" width="116%" height="116%" color-interpolation-filters="sRGB">
+        <feImage id="hv2liqMap" result="m" preserveAspectRatio="none"/>
+        <feDisplacementMap in="SourceGraphic" in2="m" scale="22" xChannelSelector="R" yChannelSelector="G" result="dR"/>
+        <feDisplacementMap in="SourceGraphic" in2="m" scale="34" xChannelSelector="R" yChannelSelector="G" result="dG"/>
+        <feDisplacementMap in="SourceGraphic" in2="m" scale="48" xChannelSelector="R" yChannelSelector="G" result="dB"/>
+        <feColorMatrix in="dR" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="cR"/>
+        <feColorMatrix in="dG" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="cG"/>
+        <feColorMatrix in="dB" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="cB"/>
+        <feBlend in="cR" in2="cG" mode="screen" result="rg"/>
+        <feBlend in="rg" in2="cB" mode="screen" result="rgb"/>
+        <feGaussianBlur in="rgb" stdDeviation="1.1" result="b"/>
+        <feColorMatrix in="b" type="saturate" values="1.35" result="s"/>
+        <feComponentTransfer in="s" result="ct">
+          <feFuncR type="linear" slope="1.24" intercept="0.03"/>
+          <feFuncG type="linear" slope="1.24" intercept="0.03"/>
+          <feFuncB type="linear" slope="1.24" intercept="0.03"/>
+        </feComponentTransfer>
+        <feTurbulence type="fractalNoise" baseFrequency="0.010 0.016" numOctaves="1" seed="7" result="tn"/>
+        <feDisplacementMap in="ct" in2="tn" xChannelSelector="R" yChannelSelector="G" scale="5">
+          <animate attributeName="scale" values="2.5;7;2.5" dur="6.5s" repeatCount="indefinite"/>
+        </feDisplacementMap>
+      </filter>
+    </svg>
+    <div id="hv2Board" aria-hidden="true"></div>
+    <div id="hv2Dive" class="hv2-abs" aria-hidden="true"></div>
+    <div id="hv2TitleWrap"><div id="hv2Gtitle"><div id="hv2Gjelly">
+      <div id="hv2Gmask2" aria-hidden="true"></div>
+      <div id="hv2Gmask" aria-hidden="true"></div>
+      <div id="hv2Ttext"><h1 class="nm">Kazuma Matsumura</h1><div class="pf">PORTFOLIO</div></div>
+    </div></div></div>
+    <div id="hv2Cue" aria-hidden="true"><span id="hv2CueMouse"></span><span id="hv2CueSwipe"></span></div>
+    <div id="hv2Tapcue" aria-hidden="true"></div>
+    <div id="hv2Down" aria-hidden="true"></div>
     <div class="hero-loader" aria-hidden="true"><div class="ring"></div><div class="lt">Loading</div></div>
-    <div class="hero-scrim"></div>
-    <div class="wrap">
-      <h1 class="hero-name-big reveal">Kazuma Matsumura</h1>
-      <p class="hero-portfolio reveal" data-d="1">Portfolio</p>
-    </div>
-    <div class="scroll-hint">scroll</div>
   </header>
 
   <section class="block about" id="about">
@@ -2483,38 +2613,587 @@ addEventListener('DOMContentLoaded',()=>{
   history.replaceState({v:'home'},'',location.pathname+location.search);
 
   runReveal();
-  // intro: while the hero video buffers, show a loader. The 7-second hold that reveals
-  // the surrounding UI is counted from the moment the video actually STARTS PLAYING —
-  // so the timing always lines up with the footage, on fast and slow connections alike.
+  // intro: hero v2 (photo mosaic) — loader while the intro chain decodes, then the
+  // reverse-dive plays; reveal() runs when the mosaic has landed (or instantly on skip).
   document.body.classList.add('intro-hold','hero-loading');
-  const heroVid=document.querySelector('.hero-video');
-  const HOLD=7000;        // reveal the rest 7s after playback begins (synced to the video)
-  const LOAD_CAP=15000;   // if the video never plays, stop loading after this and reveal
-  let holdTimer, loadCap, started=false;
   const reveal=()=>{
     if(introPlayed)return;
     introPlayed=true;
-    clearTimeout(holdTimer); clearTimeout(loadCap);
     document.body.classList.remove('intro-hold','hero-loading');
     document.querySelectorAll('#view-home .hero .reveal').forEach(el=>el.classList.add('in'));
   };
-  // playback has begun → drop the loader and start the 7s clock from here
-  const onPlaying=()=>{
-    if(started)return; started=true;
-    clearTimeout(loadCap);
-    document.body.classList.remove('hero-loading');
-    holdTimer=setTimeout(reveal,HOLD);
-  };
-  if(heroVid){
-    heroVid.addEventListener('playing',onPlaying,{once:true});
-    heroVid.addEventListener('error',reveal,{once:true});      // video failed → reveal the page
-    if(!heroVid.paused && heroVid.readyState>=3 && heroVid.currentTime>0) onPlaying(); // already playing (cache)
-    heroVid.play&&heroVid.play().catch(()=>{});                 // nudge autoplay
-    loadCap=setTimeout(reveal,LOAD_CAP);                        // loader can't spin forever
-  }else{ reveal(); }
-  // tap to skip — only after playback has started (don't let a tap during loading skip it)
-  addEventListener('pointerdown',()=>{ if(started) reveal(); });
+  requestAnimationFrame(()=>{ if(window.__hv2boot){ window.__hv2boot(reveal); } else { reveal(); } });
 });
 </script>
+<script>
+/* ===== hero v2: photo mosaic + liquid glass (integrated) ===== */
+(function(){
+"use strict";
+const hero=document.getElementById("hv2");
+if(!hero)return;
+const PHOTOS=[{"n":"crow","s":"assets/hero2/crow.webp?v=1","w":1280,"h":854,"fx":0.32,"fy":0.4},{"n":"orca","s":"assets/hero2/orca.webp?v=1","w":1280,"h":854,"fx":0.52,"fy":0.55},{"n":"koi","s":"assets/hero2/koi.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.5},{"n":"tokyo","s":"assets/hero2/tokyo.webp?v=1","w":1280,"h":854,"fx":0.75,"fy":0.4},{"n":"sakurariver","s":"assets/hero2/sakurariver.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.42},{"n":"park","s":"assets/hero2/park.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.5},{"n":"danchi","s":"assets/hero2/danchi.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.5},{"n":"corridor","s":"assets/hero2/corridor.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.55},{"n":"moto","s":"assets/hero2/moto.webp?v=1","w":1280,"h":854,"fx":0.45,"fy":0.5},{"n":"sunset2","s":"assets/hero2/sunset2.webp?v=1","w":1280,"h":854,"fx":0.8,"fy":0.32},{"n":"snow","s":"assets/hero2/snow.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.48},{"n":"cityaerial","s":"assets/hero2/cityaerial.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.45},{"n":"redgrid","s":"assets/hero2/redgrid.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.5},{"n":"forest","s":"assets/hero2/forest.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.45},{"n":"glassb","s":"assets/hero2/glass.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.5},{"n":"snowlot","s":"assets/hero2/snowlot.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.5},{"n":"rabbit","s":"assets/hero2/rabbit.webp?v=1","w":1280,"h":854,"fx":0.45,"fy":0.55},{"n":"horse","s":"assets/hero2/horse.webp?v=1","w":1280,"h":854,"fx":0.5,"fy":0.55}];
+const IDX={};PHOTOS.forEach((p,i)=>IDX[p.n]=i);
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const easeIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const easeOutBack=t=>{const c=1.18;return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const ADV=!!(window.chrome&&CSS.supports("backdrop-filter","url(#hv2liq)"));
+if(ADV)document.body.classList.add("hv2-adv");
+let HW=hero.clientWidth||innerWidth,HH=hero.clientHeight||innerHeight;
+
+/* layouts (gapless, slot0 = stage) */
+const LS=[
+ [[0,0,62,72],[62,0,38,36],[62,36,19,36],[81,36,19,36],[0,72,24,28],[24,72,24,28],[48,72,26,28],[74,72,26,28]],
+ [[30,14,44,72],[0,0,30,40],[0,40,30,46],[0,86,37,14],[37,86,37,14],[74,0,26,46],[74,46,26,54],[30,0,44,14]],
+ [[48,28,52,72],[0,0,48,28],[48,0,26,28],[74,0,26,28],[0,28,24,38],[24,28,24,38],[0,66,24,34],[24,66,24,34]],
+ [[0,22,55,78],[0,0,28,22],[28,0,27,22],[55,0,45,30],[55,30,22,38],[77,30,23,38],[55,68,22,32],[77,68,23,32]],
+];
+const LP=[
+ [[0,30,100,40],[0,0,33.4,30],[33.4,0,33.2,30],[66.6,0,33.4,30],[0,70,25,30],[25,70,25,30],[50,70,25,30],[75,70,25,30]],
+ [[0,0,100,46],[0,46,33.4,27],[33.4,46,33.2,27],[66.6,46,33.4,27],[0,73,25,27],[25,73,25,27],[50,73,25,27],[75,73,25,27]],
+ [[0,54,100,46],[0,0,25,27],[25,0,25,27],[50,0,25,27],[75,0,25,27],[0,27,33.4,27],[33.4,27,33.2,27],[66.6,27,33.4,27]],
+ [[0,24,100,52],[0,0,25,24],[25,0,25,24],[50,0,25,24],[75,0,25,24],[0,76,33.4,24],[33.4,76,33.2,24],[66.6,76,33.4,24]],
+];
+const layoutSet=()=>HH>HW?LP:LS;
+
+/* board */
+const board=document.getElementById("hv2Board");
+let order=["crow","koi","orca","sakurariver","tokyo","corridor","cityaerial","sunset2",
+  "moto","snow","redgrid","forest","glassb","snowlot","rabbit","horse","danchi","park"].map(n=>IDX[n]);
+let li=1,busy=false,introDone=false,booted=false;
+let shuffles=0,released=false;
+const tiles=PHOTOS.map((p,i)=>{
+  const d=document.createElement("div");d.className="hv2-tile hidden";
+  const im=document.createElement("img");im.src=p.s;im.alt="";d.appendChild(im);
+  d.addEventListener("click",()=>onTileClick(i));
+  board.appendChild(d);return d;
+});
+function setRect(t,r){t.style.left=r[0]+"%";t.style.top=r[1]+"%";t.style.width=r[2]+"%";t.style.height=r[3]+"%"}
+function offRect(r){
+  const cx=r[0]+r[2]/2,cy=r[1]+r[3]/2;
+  const m=Math.min(cx,100-cx,cy,100-cy);
+  if(m===cx)return[r[0]-r[2]-22,r[1],r[2],r[3]];
+  if(m===100-cx)return[r[0]+r[2]+22,r[1],r[2],r[3]];
+  if(m===cy)return[r[0],r[1]-r[3]-22,r[2],r[3]];
+  return[r[0],r[1]+r[3]+22,r[2],r[3]];
+}
+let lastVisible=new Set();
+function apply(animate=true,skipIdx=-1){
+  const L=layoutSet()[li];
+  const vis=new Set();
+  order.forEach((pi,slot)=>{
+    const t=tiles[pi];
+    if(slot<L.length){
+      vis.add(pi);
+      const r=L[slot];
+      if(!lastVisible.has(pi)&&animate){
+        t.classList.remove("anim");setRect(t,offRect(r));t.getBoundingClientRect();
+      }
+      t.classList.toggle("anim",animate);
+      setRect(t,r);
+      t.classList.remove("hidden");
+      t.classList.toggle("stage",slot===0);
+      t.style.zIndex=slot===0?2:1;
+      if(pi===skipIdx)t.classList.add("hidden");
+    }else{
+      t.classList.toggle("anim",animate);
+      t.classList.add("hidden");t.classList.remove("stage");
+    }
+  });
+  lastVisible=vis;
+  placeTapCue();
+  if(animate&&introDone)jelly();
+}
+
+/* visibility / engagement */
+let heroVisible=true;
+if("IntersectionObserver" in window){
+  new IntersectionObserver(es=>{heroVisible=es[0].isIntersecting},{threshold:.05}).observe(hero);
+}
+const homeActive=()=>{const v=document.getElementById("view-home");return v&&v.classList.contains("active")};
+const heroUsable=()=>heroVisible&&!document.hidden&&homeActive();
+const atTop=()=>hero.getBoundingClientRect().top>-40;
+function syncTouch(){hero.style.touchAction=(released&&!dive.on&&!holdActive)?"pan-y":"none"}
+const dnEl=document.getElementById("hv2Down");
+function release(){
+  if(released)return;released=true;
+  syncTouch();
+  dnEl.classList.add("on");
+  const onScroll=()=>{if(scrollY>30){dnEl.classList.remove("on");removeEventListener("scroll",onScroll)}};
+  addEventListener("scroll",onScroll,{passive:true});
+}
+
+/* cues */
+const cueEl=document.getElementById("hv2Cue");
+const tapEl=document.getElementById("hv2Tapcue");
+let scrollSeen=false,tapSeen=false;
+function placeTapCue(){
+  if(tapSeen||!introDone){tapEl.classList.remove("on");return}
+  const r=layoutSet()[li][0];
+  tapEl.style.left=`calc(${r[0]+r[2]}% - 44px)`;
+  tapEl.style.top=`calc(${r[1]+r[3]}% - 44px)`;
+  tapEl.classList.add("on");
+}
+function sawScroll(){if(!scrollSeen){scrollSeen=true;cueEl.classList.remove("on")}}
+function sawTap(){if(!tapSeen){tapSeen=true;tapEl.classList.remove("on")}}
+
+/* dive engine */
+const diveEl=document.getElementById("hv2Dive");
+const dive={on:false,chain:[],els:[],p:0,pool:[],ptr:0};
+let holdActive=false,proceedHold=()=>{};
+let exploreOn=false,exTarget=0,exP=0,lastEx=0,landAsap=false,enterExplore=()=>{};
+function ensureChain(n){
+  while(dive.chain.length<n+1){
+    dive.ptr=(dive.ptr+1)%dive.pool.length;
+    const pi=dive.pool[dive.ptr];
+    dive.chain.push(pi);
+    const d=document.createElement("div");d.className="hv2-dph";
+    const im=document.createElement("img");im.src=PHOTOS[pi].s;im.alt="";d.appendChild(im);
+    diveEl.appendChild(d);dive.els.push(d);
+  }
+}
+function exploreLoop(now){
+  if(!exploreOn)return;
+  requestAnimationFrame(exploreLoop);
+  if(now-lastEx>260)exTarget=lerp(exTarget,Math.round(exTarget),0.16);
+  exTarget=Math.max(0,exTarget);
+  exP=lerp(exP,exTarget,0.11);
+  ensureChain(Math.ceil(exP)+1);
+  dive.p=exP;diveRender();
+  const snapped=Math.abs(exP-Math.round(exP))<0.025;
+  if((now-lastEx>2300&&snapped)||(landAsap&&snapped)){
+    exploreOn=false;landAsap=false;
+    landFromExplore(Math.round(exP));
+  }
+}
+function landFromExplore(k){
+  const landIdx=dive.chain[k];
+  order=[landIdx,...order.filter(x=>x!==landIdx)];
+  li=(li+1)%4;
+  apply(false,landIdx);
+  const r=layoutSet()[li][0];
+  const el=dive.els[k];
+  dive.els.forEach((e2,i2)=>{if(i2!==k)e2.style.visibility="hidden"});
+  el.style.transform="none";el.style.borderRadius="0";el.style.opacity=1;el.style.filter="none";
+  rectTween(el,[0,0,100,100],r,820,easeOutBack,()=>{
+    tiles[landIdx].classList.remove("hidden");
+    lastVisible=new Set(order.slice(0,layoutSet()[li].length));
+    diveEnd();busy=false;placeTapCue();jelly();
+  });
+}
+function diveSetup(chain){
+  diveEl.innerHTML="";
+  dive.chain=chain;
+  dive.els=chain.map(pi=>{
+    const d=document.createElement("div");d.className="hv2-dph";
+    const im=document.createElement("img");im.src=PHOTOS[pi].s;im.alt="";d.appendChild(im);
+    diveEl.appendChild(d);return d;
+  });
+  dive.on=true;diveEl.classList.add("on");
+  syncTouch();
+}
+function diveRender(){
+  for(let k=0;k<dive.chain.length;k++){
+    const el=dive.els[k],t=dive.p-k;
+    if(t<-1.02||t>1.02){el.style.visibility="hidden";continue}
+    el.style.visibility="visible";
+    const ph=PHOTOS[dive.chain[k]];
+    if(t>=0){
+      const e=easeIO(clamp(t,0,1));
+      el.style.transformOrigin=(ph.fx*100)+"% "+(ph.fy*100)+"%";
+      el.style.transform=`scale(${1+e*3.1})`;
+      el.style.opacity=1-clamp((t-0.5)/0.5,0,1);
+      el.style.zIndex=1;el.style.borderRadius="0";
+      el.style.filter=`brightness(${1-e*0.3})`;
+    }else{
+      const e=easeIO(clamp(t+1,0,1));
+      const pr=k>0?PHOTOS[dive.chain[k-1]]:ph;
+      const s=lerp(0.18,1,e);
+      el.style.transformOrigin="50% 50%";
+      el.style.transform=`translate(${(pr.fx-0.5)*HW*(1-e)}px,${(pr.fy-0.5)*HH*(1-e)}px) scale(${s})`;
+      el.style.opacity=clamp(e*2.4,0,1);
+      el.style.zIndex=2;
+      el.style.borderRadius=((1-e)*26)+"px";
+      el.style.filter="none";
+    }
+  }
+}
+function diveEnd(){dive.on=false;diveEl.classList.remove("on");diveEl.innerHTML="";dive.els=[];syncTouch()}
+function rectTween(el,from,to,dur,easeFn,done){
+  const t0=performance.now();
+  el.style.inset="auto";el.style.visibility="visible";el.style.opacity=1;
+  el.style.transform="none";el.style.zIndex=3;
+  (function f(now){
+    const u=clamp((now-t0)/dur,0,1),e=easeFn(u);
+    el.style.left=lerp(from[0],to[0],e)+"%";
+    el.style.top=lerp(from[1],to[1],e)+"%";
+    el.style.width=lerp(from[2],to[2],e)+"%";
+    el.style.height=lerp(from[3],to[3],e)+"%";
+    if(u<1)requestAnimationFrame(f);else done&&done();
+  })(t0);
+}
+
+/* intro (A reversed -> mosaic, 10 photos) */
+const titleWrap=document.getElementById("hv2TitleWrap");
+let introSkip=false,revealCb=null;
+const CHAIN_NAMES=["crow","koi","orca","sakurariver","tokyo","corridor","cityaerial","redgrid","moto","park"];
+function finishIntro(){
+  if(introDone)return;introDone=true;
+  lastTouch=performance.now();
+  diveEnd();
+  apply(false);
+  titleWrap.classList.add("on");
+  cueEl.classList.add("on");
+  placeTapCue();
+  revealCb&&revealCb();
+}
+function instantState(){
+  introDone=true;
+  lastTouch=performance.now();
+  apply(false);
+  titleWrap.classList.add("on");
+  cueEl.classList.add("on");
+  placeTapCue();
+}
+function runIntro(){
+  const chain=CHAIN_NAMES.map(n=>IDX[n]);
+  const DEPTH=chain.length-1;
+  if(RM){finishIntro();return}
+  diveSetup(chain);
+  const L=layoutSet()[li];
+  order.forEach((pi,slot)=>{
+    const t=tiles[pi];
+    if(slot<L.length){t.classList.remove("anim","hidden");setRect(t,offRect(L[slot]));t.classList.toggle("stage",slot===0)}
+  });
+  tiles[IDX.crow].classList.add("hidden");
+  const HOLD=360,LAND=950;
+  const SEGW=[1.45,1.0,0.7,0.55,0.5,0.5,0.65,0.95,1.55];
+  const ZOOM=5800;
+  const SEGSUM=SEGW.reduce((a,b)=>a+b,0);
+  const SEGD=SEGW.map(w=>w/SEGSUM*ZOOM);
+  const t0=performance.now();
+  (function f(now){
+    if(introDone)return;
+    if(introSkip){finishIntro();return}
+    const t=now-t0;
+    if(t<HOLD){dive.p=DEPTH;diveRender();requestAnimationFrame(f);return}
+    if(t<HOLD+ZOOM){
+      const t2=t-HOLD;
+      let k=0,acc=0;
+      while(k<DEPTH-1&&t2>=acc+SEGD[k]){acc+=SEGD[k];k++}
+      const su=(t2-acc)/SEGD[k];
+      const e=easeIO(clamp(su/0.72,0,1));
+      dive.p=DEPTH-(k+e);
+      diveRender();requestAnimationFrame(f);return;
+    }
+    const stageR=layoutSet()[li][0];
+    dive.els.forEach((el,k)=>{if(k>0)el.style.visibility="hidden"});
+    titleWrap.classList.add("on");
+    order.forEach((pi,slot)=>{
+      const t2=tiles[pi],L2=layoutSet()[li];
+      if(slot<L2.length&&pi!==IDX.crow){
+        t2.classList.add("anim");
+        t2.style.transitionDelay=(slot*55)+"ms";
+        setRect(t2,L2[slot]);
+        setTimeout(()=>t2.style.transitionDelay="0ms",1400);
+      }
+    });
+    rectTween(dive.els[0],[0,0,100,100],stageR,LAND,easeOutBack,()=>{
+      tiles[IDX.crow].classList.remove("hidden");
+      lastVisible=new Set(order.slice(0,layoutSet()[li].length));
+      finishIntro();
+    });
+  })(t0);
+}
+
+/* interactions */
+function step(dir,user=true){
+  if(busy||!introDone||dive.on)return;
+  busy=true;setTimeout(()=>busy=false,620);
+  if(user)sawScroll();
+  if(dir>0)order=[...order.slice(1),order[0]];
+  else order=[order[order.length-1],...order.slice(0,order.length-1)];
+  li=(li+1)%4;
+  apply(true);
+  shuffles++;
+  if(shuffles>=5)release();
+}
+function onTileClick(pi){
+  if(busy||!introDone||dive.on)return;
+  const slot=order.indexOf(pi);
+  const L=layoutSet()[li];
+  if(slot>=L.length)return;
+  sawTap();
+  if(slot===0){stageDive();return}
+  busy=true;setTimeout(()=>busy=false,720);
+  order=[pi,...order.filter(x=>x!==pi)];
+  li=(li+1)%4;
+  apply(true);
+}
+function stageDive(){
+  busy=true;
+  const stageIdx=order[0];
+  const nextIdx=order[Math.min(8,order.length-1)];
+  const stageR=layoutSet()[li][0];
+  diveSetup([stageIdx,nextIdx]);
+  dive.pool=order.slice(1);
+  dive.ptr=Math.min(7,dive.pool.length-1);
+  tiles[stageIdx].classList.add("hidden");
+  rectTween(dive.els[0],stageR,[0,0,100,100],520,easeIO,()=>{
+    dive.els[0].style.left="0";dive.els[0].style.top="0";
+    dive.els[0].style.width="100%";dive.els[0].style.height="100%";
+    const kb=RM?null:dive.els[0].animate(
+      [{transform:"scale(1)"},{transform:"scale(1.05)"}],
+      {duration:3400,easing:"linear",fill:"forwards"});
+    holdActive=true;syncTouch();
+    const holdTimer=setTimeout(()=>proceedHold(),3000);
+    enterExplore=()=>{
+      if(!holdActive)return;holdActive=false;
+      clearTimeout(holdTimer);kb&&kb.cancel();
+      dive.els[0].style.transform="none";
+      exploreOn=true;exTarget=0;exP=0;landAsap=false;
+      lastEx=performance.now();
+      requestAnimationFrame(exploreLoop);
+    };
+    proceedHold=()=>{
+      if(!holdActive)return;holdActive=false;
+      clearTimeout(holdTimer);kb&&kb.cancel();
+      const t0=performance.now(),DUR=980;
+      (function f(now){
+        const u=clamp((now-t0)/DUR,0,1);
+        dive.p=easeIO(u);
+        diveRender();
+        if(u<1){requestAnimationFrame(f);return}
+        order=[nextIdx,...order.filter((x,i)=>x!==nextIdx&&i!==0),stageIdx];
+        li=(li+1)%4;
+        apply(false,nextIdx);
+        const newStageR=layoutSet()[li][0];
+        const el=dive.els[1];
+        el.style.transform="none";el.style.borderRadius="0";
+        rectTween(el,[0,0,100,100],newStageR,820,easeOutBack,()=>{
+          tiles[nextIdx].classList.remove("hidden");
+          lastVisible=new Set(order.slice(0,layoutSet()[li].length));
+          diveEnd();busy=false;
+          placeTapCue();jelly();
+        });
+      })(t0);
+    };
+  });
+}
+
+/* input: wheel (one step per gesture), stops page scroll until released */
+let armed=true,lastWheelT=0;
+hero.addEventListener("wheel",e=>{
+  if(!heroUsable())return;
+  const nw=performance.now();
+  if(nw-lastWheelT>180)armed=true;
+  lastWheelT=nw;
+  touch();
+  if(dive.on){
+    e.preventDefault();e.stopPropagation();
+    if(holdActive)enterExplore();
+    if(exploreOn){exTarget=Math.max(0,exTarget+e.deltaY*0.0016);lastEx=performance.now();}
+    return;
+  }
+  if(released||!atTop())return;
+  e.preventDefault();e.stopPropagation();
+  if(!introDone){introSkip=true;return}
+  const d=e.deltaY;
+  if(Math.abs(d)<6){armed=true;return}
+  if(armed&&!busy){armed=false;step(d>0?1:-1)}
+  if(Math.abs(d)<22)armed=true;
+},{passive:false});
+/* pointer: swipe shuffles / drives explore; tap proceeds or lands */
+let ty=null,moved=false;
+hero.addEventListener("pointerdown",e=>{
+  if(!heroUsable())return;
+  ty=e.clientY;moved=false;touch();
+  if(!introDone&&!released)introSkip=true;
+});
+hero.addEventListener("pointermove",e=>{
+  if(ty===null||!heroUsable())return;
+  const dy=ty-e.clientY;
+  if(holdActive&&Math.abs(dy)>18){enterExplore();moved=true}
+  if(exploreOn){
+    if(Math.abs(dy)>2){
+      exTarget=Math.max(0,exTarget+dy*0.0042);
+      ty=e.clientY;lastEx=performance.now();moved=true;
+    }
+    return;
+  }
+  if(released)return;
+  if(!moved&&Math.abs(dy)>42){moved=true;step(dy>0?1:-1)}
+});
+hero.addEventListener("pointerup",()=>{
+  if(holdActive&&!moved)proceedHold();
+  else if(exploreOn&&!moved){exTarget=Math.round(exTarget);landAsap=true;lastEx=performance.now();}
+  ty=null;
+});
+addEventListener("keydown",e=>{
+  if(!heroUsable()||!atTop())return;
+  if(dive.on){
+    if(holdActive)enterExplore();
+    if(exploreOn){
+      if(e.key==="ArrowDown"||e.key===" "){exTarget+=1;e.preventDefault()}
+      if(e.key==="ArrowUp"){exTarget=Math.max(0,exTarget-1);e.preventDefault()}
+      lastEx=performance.now();
+    }
+    return;
+  }
+  if(released)return;
+  touch();
+  if(!introDone){introSkip=true;return}
+  if(e.key==="ArrowDown"||e.key===" "||e.key==="ArrowRight"){step(1);e.preventDefault()}
+  if(e.key==="ArrowUp"||e.key==="ArrowLeft"){step(-1);e.preventDefault()}
+},true);
+/* idle auto-shuffle (~5s) */
+let lastTouch=performance.now(),lastAuto=0;
+function touch(){lastTouch=performance.now()}
+setInterval(()=>{
+  if(RM||!introDone||busy||dive.on||!heroUsable())return;
+  const n=performance.now();
+  if(n-lastTouch>4600&&n-lastAuto>4600){lastAuto=n;step(1,false)}
+},800);
+
+/* liquid glass text */
+const gtitle=document.getElementById("hv2Gtitle");
+const gmask=document.getElementById("hv2Gmask");
+const gmask2=document.getElementById("hv2Gmask2");
+const gjelly=document.getElementById("hv2Gjelly");
+const liqMap=document.getElementById("hv2liqMap");
+const NAME="Kazuma Matsumura",PF="PORTFOLIO";
+let mx=.5,my=.5,prx=0,pry=0,lx=.5,ly=.5,lastPtr=0;
+hero.addEventListener("pointermove",e=>{
+  const r=hero.getBoundingClientRect();
+  mx=clamp((e.clientX-r.left)/r.width,0,1);
+  my=clamp((e.clientY-r.top)/r.height,0,1);
+  lastPtr=performance.now();
+});
+addEventListener("deviceorientation",e=>{
+  if(e.gamma==null||performance.now()-lastPtr<3000||!heroUsable())return;
+  mx=clamp(.5+e.gamma/60,0,1);my=clamp(.5+(e.beta-40)/80,0,1);
+});
+function jelly(){
+  if(RM||!gjelly)return;
+  gjelly.animate(
+    [{transform:"scale(1,1)"},{transform:"scale(1.05,.95)",offset:.28},
+     {transform:"scale(.972,1.022)",offset:.6},{transform:"scale(1.01,.995)",offset:.82},
+     {transform:"scale(1,1)"}],{duration:680,easing:"ease-out"});
+}
+(function tilt(){
+  requestAnimationFrame(tilt);
+  if(RM||!heroVisible||document.hidden)return;
+  let tx=mx,tyy=my;
+  if(performance.now()-lastPtr>2600){
+    const t=performance.now();
+    tx=.5+.42*Math.cos(t*.00037);
+    tyy=.34+.30*Math.sin(t*.00053);
+  }
+  lx=lerp(lx,tx,.06);ly=lerp(ly,tyy,.06);
+  prx=lerp(prx,(ly-.5)*-5,.07);
+  pry=lerp(pry,(lx-.5)*5,.07);
+  gmask.style.setProperty("--gx",(lx*100).toFixed(2)+"%");
+  gmask.style.setProperty("--gy",(ly*100).toFixed(2)+"%");
+  gmask.style.setProperty("--gl",(lx*220-60).toFixed(1)+"%");
+  const rx=(lx-.5)*2.6,ry=(ly-.5)*2.6;
+  gmask.style.filter=`drop-shadow(${rx.toFixed(2)}px ${(ry-1.4).toFixed(2)}px 0 rgba(255,255,255,.32)) drop-shadow(${(-rx*2.5).toFixed(2)}px ${(9-ry*2).toFixed(2)}px 24px rgba(0,0,0,.55))`;
+  gmask2.style.transform=`translate(${(-pry*1.5).toFixed(2)}px,${(prx*1.5).toFixed(2)}px) scale(1.012)`;
+  if(introDone)gtitle.style.transform=`scale(1) rotateX(${prx.toFixed(3)}deg) rotateY(${pry.toFixed(3)}deg)`;
+})();
+if(RM){const an=document.querySelector("#hv2liq animate");an&&an.remove()}
+function buildGlassText(){
+  if(!ADV)return;
+  const mob=HW<760;
+  const big=mob?clamp(HW*0.082,26,40):clamp(HW*0.056,30,72);
+  const small=mob?clamp(HW*0.030,10,14):clamp(HW*0.012,10,14);
+  const ls=small*(mob?0.6:0.82);
+  const gap=big*0.36;
+  const FONT='"Outfit","Helvetica Neue","Hiragino Sans",Arial,sans-serif';
+  const dpr=Math.min(devicePixelRatio||1,2);
+  const meas=document.createElement("canvas").getContext("2d");
+  meas.font=`700 ${big}px ${FONT}`;
+  const w1=meas.measureText(NAME).width;
+  meas.font=`500 ${small}px ${FONT}`;
+  meas.letterSpacing=ls+"px";
+  const w2=meas.measureText(PF).width;
+  const W=Math.ceil(Math.max(w1,w2))+56;
+  const H=Math.ceil(big*1.22+gap+small*1.5)+20;
+  const c=document.createElement("canvas");c.width=W*dpr;c.height=H*dpr;
+  const x=c.getContext("2d");x.scale(dpr,dpr);
+  x.fillStyle="#fff";x.textAlign="center";x.textBaseline="alphabetic";
+  x.font=`700 ${big}px ${FONT}`;
+  x.fillText(NAME,W/2,10+big);
+  x.font=`500 ${small}px ${FONT}`;
+  x.letterSpacing=ls+"px";
+  x.fillText(PF,W/2+ls/2,10+big+gap+small);
+  const maskURL=c.toDataURL();
+  gmask.style.width=W+"px";gmask.style.height=H+"px";
+  gmask.style.webkitMaskImage=`url(${maskURL})`;gmask.style.maskImage=`url(${maskURL})`;
+  gmask.style.webkitMaskSize="100% 100%";gmask.style.maskSize="100% 100%";
+  gmask2.style.webkitMaskImage=`url(${maskURL})`;gmask2.style.maskImage=`url(${maskURL})`;
+  gmask2.style.webkitMaskSize="100% 100%";gmask2.style.maskSize="100% 100%";
+  const sm=document.createElement("canvas");sm.width=W;sm.height=H;
+  const sx=sm.getContext("2d");
+  sx.filter="blur(4.5px)";
+  sx.drawImage(c,0,0,W,H);
+  const d=sx.getImageData(0,0,W,H);
+  const out=sx.createImageData(W,H);
+  const A=(i,j)=>d.data[((j*W)+i)*4+3];
+  for(let j=0;j<H;j++)for(let i=0;i<W;i++){
+    const gx=(A(Math.min(i+1,W-1),j)-A(Math.max(i-1,0),j))/255;
+    const gy=(A(i,Math.min(j+1,H-1))-A(i,Math.max(j-1,0)))/255;
+    const o=((j*W)+i)*4;
+    out.data[o]=128+clamp(gx*1.5,-1,1)*127;
+    out.data[o+1]=128+clamp(gy*1.5,-1,1)*127;
+    out.data[o+2]=128;out.data[o+3]=255;
+  }
+  sx.putImageData(out,0,0);
+  const sm2=document.createElement("canvas");sm2.width=W;sm2.height=H;
+  const sx2=sm2.getContext("2d");
+  sx2.fillStyle="rgb(128,128,128)";sx2.fillRect(0,0,W,H);
+  sx2.filter="blur(1.4px)";
+  sx2.drawImage(sm,0,0);
+  liqMap.setAttribute("href",sm2.toDataURL());
+  liqMap.setAttribute("x",0);liqMap.setAttribute("y",0);
+  liqMap.setAttribute("width",W);liqMap.setAttribute("height",H);
+}
+addEventListener("resize",()=>{
+  HW=hero.clientWidth;HH=hero.clientHeight;
+  apply(false);buildGlassText();
+});
+
+/* boot */
+async function prepare(){
+  const waits=CHAIN_NAMES.map(n=>{
+    const im=new Image();im.src=PHOTOS[IDX[n]].s;
+    return im.decode().catch(()=>{});
+  });
+  const cap=new Promise(r=>setTimeout(r,8000));
+  await Promise.race([Promise.all(waits),cap]);
+  if(document.fonts&&document.fonts.ready){
+    await Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,2000))]);
+  }
+  HW=hero.clientWidth;HH=hero.clientHeight;
+  buildGlassText();
+}
+window.__hv2boot=function(cb){
+  if(booted){cb&&cb();return}
+  booted=true;revealCb=cb;
+  prepare().then(()=>{
+    document.body.classList.remove("hero-loading");
+    runIntro();
+  });
+};
+document.addEventListener("DOMContentLoaded",()=>{
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    if(booted||document.body.classList.contains("intro-hold"))return;
+    booted=true;
+    prepare().then(()=>{instantState()});
+  }));
+});
+})();
+</script>
+
 </body>
 </html>
