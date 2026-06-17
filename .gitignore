@@ -6,3 +6,10 @@
 _受け渡し/
 COPY.md
 PLAN.md
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
