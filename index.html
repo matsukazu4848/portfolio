@@ -195,6 +195,22 @@ footer{position:relative;z-index:3;background:var(--bg)}
 .stmt-text{max-width:520px}
 .stmt-video{position:relative;border-radius:12px;overflow:hidden;background:#0f141c url('assets/about-video-poster.jpg') center/cover no-repeat;aspect-ratio:16/9}
 .stmt-video video{width:100%;height:100%;display:block;object-fit:cover}
+/* Project footage gallery (hover-to-play tiles) */
+.pv-title{font-family:'Outfit',sans-serif;font-size:clamp(26px,4vw,40px);font-weight:800;margin:6px 0 10px;color:var(--text)}
+.pv-lead{color:var(--muted);font-size:15px;max-width:540px;margin:0 auto;line-height:1.7}
+.pv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pv-grid--3{grid-template-columns:repeat(3,1fr);max-width:760px;margin-left:auto;margin-right:auto}
+.pv-grid--1{grid-template-columns:minmax(0,320px);justify-content:center}
+.pv-tile{position:relative;aspect-ratio:9/16;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#0f141c;cursor:pointer;padding:0;display:block;box-shadow:0 6px 20px rgba(27,36,48,.10);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+.pv-tile:hover,.pv-tile:focus-visible{transform:translateY(-4px);box-shadow:0 14px 34px rgba(27,36,48,.22);outline:none}
+.pv-poster,.pv-tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pv-tile video{z-index:1}
+.pv-cap{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:20px 12px 11px;font-size:12.5px;font-weight:600;color:#fff;text-align:left;line-height:1.35;letter-spacing:.01em;background:linear-gradient(to top,rgba(8,11,16,.85),rgba(8,11,16,0));transition:opacity .3s var(--ease)}
+.pv-play{position:absolute;top:50%;left:50%;z-index:2;width:44px;height:44px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:1px solid rgba(255,255,255,.45);transition:opacity .3s var(--ease)}
+.pv-play::after{content:'';position:absolute;top:50%;left:53%;transform:translate(-50%,-50%);border-style:solid;border-width:7px 0 7px 12px;border-color:transparent transparent transparent #fff}
+.pv-tile.is-playing .pv-play,.pv-tile.is-playing .pv-cap{opacity:0}
+@media (max-width:760px){.pv-grid{grid-template-columns:repeat(2,1fr);gap:10px}.pv-grid--1{grid-template-columns:minmax(0,240px)}.pv-cap{font-size:11.5px;padding:16px 10px 9px}}
+@media (prefers-reduced-motion:reduce){.pv-tile{transition:none}}
 .stmt-title{font-family:'Zen Kaku Gothic New',sans-serif;font-weight:900;font-size:clamp(28px,4vw,46px);line-height:1.3;color:var(--navy);margin:16px 0 22px;letter-spacing:.01em}
 .stmt-body{font-size:16.5px;line-height:1.95;color:#3a4250;max-width:58ch}
 .about-self{border-top:1px solid var(--line);padding-top:62px}
@@ -1388,6 +1404,22 @@ body.hv2-adv #hv2Ttext{position:absolute;inset:0;opacity:0}
     </div>
   </section>
 
+  <section class="block pv-sec">
+    <div class="wrap">
+      <div class="reveal" style="text-align:center;margin-bottom:34px">
+        <div class="label" style="display:block;margin-bottom:12px">Process &amp; Footage</div>
+        <h2 class="pv-title">使用シーン</h2>
+        <p class="pv-lead">完成したテープ台を実際に使っているところ。カーソルを合わせると再生されます。</p>
+      </div>
+      <div class="pv-grid pv-grid--1 reveal">
+        <button class="pv-tile" type="button" data-src="assets/segtape-vid/segtape-clip-1.mp4?v=1" aria-label="使用シーンを再生">
+          <img class="pv-poster" src="assets/segtape-vid/segtape-clip-1.jpg?v=1" alt="Segtape 使用シーン" loading="lazy">
+          <span class="pv-cap">使用シーン</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <section class="block sg-outro">
     <div class="wrap" style="text-align:center;max-width:760px">
       <div class="label" style="display:block;margin-bottom:14px">Reflection</div>
@@ -1427,6 +1459,30 @@ body.hv2-adv #hv2Ttext{position:absolute;inset:0;opacity:0}
     </div>
   </section>
 
+  <section class="block pv-sec">
+    <div class="wrap">
+      <div class="reveal" style="text-align:center;margin-bottom:34px">
+        <div class="label" style="display:block;margin-bottom:12px">Process &amp; Footage</div>
+        <h2 class="pv-title">制作の記録</h2>
+        <p class="pv-lead">ブースの仕掛けを形にしていく制作の記録。カーソルを合わせると再生されます。</p>
+      </div>
+      <div class="pv-grid pv-grid--3 reveal">
+        <button class="pv-tile" type="button" data-src="assets/tsudanuma-vid/tsudanuma-clip-1.mp4?v=1" aria-label="制作風景①を再生">
+          <img class="pv-poster" src="assets/tsudanuma-vid/tsudanuma-clip-1.jpg?v=1" alt="制作風景①" loading="lazy">
+          <span class="pv-cap">制作風景①</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/tsudanuma-vid/tsudanuma-clip-2.mp4?v=1" aria-label="制作風景②を再生">
+          <img class="pv-poster" src="assets/tsudanuma-vid/tsudanuma-clip-2.jpg?v=1" alt="制作風景②" loading="lazy">
+          <span class="pv-cap">制作風景②</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/tsudanuma-vid/tsudanuma-clip-3.mp4?v=1" aria-label="制作風景③を再生">
+          <img class="pv-poster" src="assets/tsudanuma-vid/tsudanuma-clip-3.jpg?v=1" alt="制作風景③" loading="lazy">
+          <span class="pv-cap">制作風景③</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <section class="block sg-outro">
     <div class="wrap" style="text-align:center;max-width:760px">
       <div class="label" style="display:block;margin-bottom:14px">Key Insight</div>
@@ -1458,6 +1514,50 @@ body.hv2-adv #hv2Ttext{position:absolute;inset:0;opacity:0}
         <img class="sg-slide" src="assets/puipui-03.webp" alt="DECISION 減速機を自作する判断">
         <img class="sg-slide" src="assets/puipui-04.webp" alt="PROCESS & RESULT 3台の作成と結果">
         <img class="sg-slide" src="assets/puipui-05.webp" alt="REFLECTION この5週間で学んだこと">
+      </div>
+    </div>
+  </section>
+
+  <section class="block pv-sec">
+    <div class="wrap">
+      <div class="reveal" style="text-align:center;margin-bottom:34px">
+        <div class="label" style="display:block;margin-bottom:12px">Process &amp; Footage</div>
+        <h2 class="pv-title">制作の記録</h2>
+        <p class="pv-lead">減速機の試作から本番レースまで、5週間の制作の記録。カーソルを合わせると再生されます。</p>
+      </div>
+      <div class="pv-grid reveal">
+        <button class="pv-tile" type="button" data-src="assets/puipui-vid/puipui-clip-1.mp4?v=1" aria-label="試作・減速機 第1版を再生">
+          <img class="pv-poster" src="assets/puipui-vid/puipui-clip-1.jpg?v=1" alt="試作・減速機 第1版" loading="lazy">
+          <span class="pv-cap">試作・減速機 第1版</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/puipui-vid/puipui-clip-2.mp4?v=1" aria-label="減速機 第2版を再生">
+          <img class="pv-poster" src="assets/puipui-vid/puipui-clip-2.jpg?v=1" alt="減速機 第2版" loading="lazy">
+          <span class="pv-cap">減速機 第2版</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/puipui-vid/puipui-clip-3.mp4?v=1" aria-label="4輪駆動版を再生">
+          <img class="pv-poster" src="assets/puipui-vid/puipui-clip-3.jpg?v=1" alt="4輪駆動版" loading="lazy">
+          <span class="pv-cap">4輪駆動版</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/puipui-vid/puipui-clip-4.mp4?v=1" aria-label="走行シーン①を再生">
+          <img class="pv-poster" src="assets/puipui-vid/puipui-clip-4.jpg?v=1" alt="走行シーン①" loading="lazy">
+          <span class="pv-cap">走行シーン①</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/puipui-vid/puipui-clip-5.mp4?v=1" aria-label="走行シーン②を再生">
+          <img class="pv-poster" src="assets/puipui-vid/puipui-clip-5.jpg?v=1" alt="走行シーン②" loading="lazy">
+          <span class="pv-cap">走行シーン②</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/puipui-vid/puipui-clip-6.mp4?v=1" aria-label="本番・登坂テスト①を再生">
+          <img class="pv-poster" src="assets/puipui-vid/puipui-clip-6.jpg?v=1" alt="本番・登坂テスト①" loading="lazy">
+          <span class="pv-cap">本番・登坂テスト①</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/puipui-vid/puipui-clip-7.mp4?v=1" aria-label="本番・登坂テスト②を再生">
+          <img class="pv-poster" src="assets/puipui-vid/puipui-clip-7.jpg?v=1" alt="本番・登坂テスト②" loading="lazy">
+          <span class="pv-cap">本番・登坂テスト②</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
+        <button class="pv-tile" type="button" data-src="assets/puipui-vid/puipui-clip-8.mp4?v=1" aria-label="本番・ひっぱり相撲 勝利を再生">
+          <img class="pv-poster" src="assets/puipui-vid/puipui-clip-8.jpg?v=1" alt="本番・ひっぱり相撲 勝利" loading="lazy">
+          <span class="pv-cap">本番・ひっぱり相撲 勝利</span><span class="pv-play" aria-hidden="true"></span>
+        </button>
       </div>
     </div>
   </section>
@@ -2600,6 +2700,39 @@ addEventListener('DOMContentLoaded',()=>{
       const vio=new IntersectionObserver((es)=>{es.forEach(e=>{ if(e.isIntersecting){ kick(); } });},{threshold:.2});
       vio.observe(v);
     }else{ kick(); }
+  });
+
+  // Project footage gallery: load + play a tile's video only on interaction (bandwidth-safe).
+  document.querySelectorAll('.pv-grid').forEach(grid=>{
+    const hoverMode = matchMedia('(hover:hover) and (pointer:fine)').matches
+                   && !matchMedia('(prefers-reduced-motion:reduce)').matches;
+    const ensure=(tile)=>{
+      let v=tile.querySelector('video');
+      if(!v){
+        v=document.createElement('video');
+        v.muted=true; v.loop=true; v.playsInline=true; v.setAttribute('playsinline','');
+        v.preload='auto'; v.src=tile.dataset.src;
+        tile.insertBefore(v, tile.querySelector('.pv-cap'));
+      }
+      return v;
+    };
+    const play=(tile)=>{ ensure(tile).play().then(()=>tile.classList.add('is-playing')).catch(()=>{}); };
+    const stop=(tile)=>{ const v=tile.querySelector('video'); if(v)v.pause(); tile.classList.remove('is-playing'); };
+    grid.querySelectorAll('.pv-tile').forEach(tile=>{
+      if(hoverMode){
+        tile.addEventListener('pointerenter',()=>play(tile));
+        tile.addEventListener('pointerleave',()=>stop(tile));
+        tile.addEventListener('focus',()=>play(tile));
+        tile.addEventListener('blur',()=>stop(tile));
+      }else{
+        // touch / reduced-motion: tap toggles, and only one plays at a time
+        tile.addEventListener('click',()=>{
+          if(tile.classList.contains('is-playing')){ stop(tile); return; }
+          grid.querySelectorAll('.pv-tile.is-playing').forEach(t=>{ if(t!==tile) stop(t); });
+          play(tile);
+        });
+      }
+    });
   });
 
   if(initView!=='home'){
